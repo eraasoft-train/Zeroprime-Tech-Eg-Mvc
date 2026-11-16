@@ -29,4 +29,21 @@
             }
         });
     }
+
+    // Dark / light theme toggle (initial theme is applied by theme.js before paint)
+    var themeToggle = document.getElementById('zpThemeToggle');
+    if (themeToggle) {
+        var root = document.documentElement;
+        var syncPressed = function () {
+            themeToggle.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
+        };
+        syncPressed();
+
+        themeToggle.addEventListener('click', function () {
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            try { window.localStorage.setItem('zp-theme', next); } catch (_) { /* private mode */ }
+            syncPressed();
+        });
+    }
 })();
