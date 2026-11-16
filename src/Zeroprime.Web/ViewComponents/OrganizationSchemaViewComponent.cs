@@ -10,26 +10,45 @@ namespace Zeroprime.Web.ViewComponents;
 /// Emits Schema.org Organization JSON-LD built strictly from verified company data
 /// (see docs/research/ZEROPRIME_COMPANY_RESEARCH.md). No fields are fabricated:
 /// missing values are omitted rather than guessed.
+///
+/// Must never fail the page: on any infrastructure error (e.g. database unreachable)
+/// it falls back to the verified public facts so the error page can still render.
 /// </summary>
 public class OrganizationSchemaViewComponent : ViewComponent
 {
     private readonly ICompanyProfileService _companyProfiles;
     private readonly ISocialMediaLinkService _socialLinks;
+    private readonly ILogger<OrganizationSchemaViewComponent> _logger;
 
     public OrganizationSchemaViewComponent(
         ICompanyProfileService companyProfiles,
-        ISocialMediaLinkService socialLinks)
+        ISocialMediaLinkService socialLinks,
+        ILogger<OrganizationSchemaViewComponent> logger)
     {
         _companyProfiles = companyProfiles;
         _socialLinks = socialLinks;
+        _logger = logger;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var company = await _companyProfiles.GetProfileAsync(HttpContext.RequestAborted)
+        CompanyProfileDto company = FallbackCompany.Value;
+        string[] sameAs = [];
+
+        try
+        {
+            company = await _companyProfiles.GetProfileAsync(HttpContext.RequestAborted)
                       ?? FallbackCompany.Value;
 
-        var links = await _socialLinks.GetActiveLinksAsync(HttpContext.RequestAborted);
+            var links = await _socialLinks.GetActiveLinksAsync(HttpContext.RequestAborted);
+            sameAs = links.Select(l => l.Url).ToArray();
+        }
+        catch (Exception ex)
+        {
+            // Never let SEO plumbing break page rendering (e.g. when the database is down).
+            _logger.LogWarning(ex, "Organization schema falling back to static verified values");
+        }
+
         var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
 
         var schema = new Dictionary<string, object?>
@@ -49,9 +68,18 @@ public class OrganizationSchemaViewComponent : ViewComponent
             }
         };
 
-        if (links.Count > 0)
+        if (sameAs.Length > 0)
         {
-            schema["sameAs"] = links.Select(l => l.Url).ToArray();
+            schema["sameAs"] = sameAs;
+        }
+        else
+        {
+            schema["sameAs"] = new[]
+            {
+                "https://www.linkedin.com/company/zeroprime-technologies",
+                "https://www.instagram.com/zeroprime.tech/",
+                "https://www.facebook.com/zeroprime.tech"
+            };
         }
 
         var json = JsonSerializer.Serialize(schema, new JsonSerializerOptions

@@ -231,6 +231,9 @@ h1, h2, h3, h4, h5 {
 
 .zp-btn--sm { padding: 0.6rem 1.1rem; font-size: 0.85rem; }
 .zp-btn--lg { padding: 1rem 1.9rem; font-size: 1rem; }
+.zp-btn { touch-action: manipulation; }
+.zp-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: var(--zp-shadow-sm); }
+.zp-btn:disabled:hover { transform: none; background: var(--btn-bg); }
 
 /* --------------------------------------------------------- Navigation */
 .zp-header {
@@ -434,9 +437,7 @@ h1, h2, h3, h4, h5 {
 
 .zp-feature-list { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
 .zp-feature-list li { display: flex; gap: 0.6rem; align-items: flex-start; color: #dcebe1; line-height: 1.5; }
-.zp-products-page .zp-feature-list li { color: var(--zp-ink); }
 .zp-feature-list svg { flex: 0 0 auto; width: 1.15rem; height: 1.15rem; margin-top: 0.15rem; color: var(--zp-amber-light); }
-.zp-products-page .zp-feature-list svg { color: var(--zp-green-600); }
 
 .zp-chip {
   display: inline-flex; align-items: center;
@@ -480,22 +481,23 @@ h1, h2, h3, h4, h5 {
 @media (min-width: 576px) { .zp-footer-grid { grid-template-columns: repeat(2, 1fr); gap: 2.25rem; } }
 @media (min-width: 992px) { .zp-footer-grid { grid-template-columns: 1.35fr 1fr 1fr 1fr; gap: 2.5rem; padding-block: 3.5rem 2rem; } }
 .zp-footer-heading { color: #f1f5f0; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 0.85rem; }
-.zp-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; font-size: 0.92rem; }
+.zp-footer ul:not(.zp-social) { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; font-size: 0.92rem; }
 .zp-footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-block: 1.1rem; font-size: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; align-items: center; justify-content: space-between; }
+@media (max-width: 640px) { .zp-footer-bottom { justify-content: center; text-align: center; } }
 .zp-footer-logo { height: 42px; width: auto; margin-bottom: 0.85rem; }
 .zp-footer p { line-height: 1.65; font-size: 0.92rem; margin: 0 0 0.9rem; }
 
-.zp-social { display: flex; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
-.zp-social li { display: block; }
-.zp-social a {
-  width: 2.25rem; height: 2.25rem; border-radius: 10px;
+.zp-footer .zp-social { display: flex; flex-direction: row; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.zp-footer .zp-social li { display: block; }
+.zp-footer .zp-social a {
+  width: 2.3rem; height: 2.3rem; border-radius: 12px;
   display: grid; place-items: center;
   background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
   color: #dcebe1;
-  transition: background var(--zp-transition), transform var(--zp-transition), color var(--zp-transition);
+  transition: background var(--zp-transition), transform var(--zp-transition), color var(--zp-transition), border-color var(--zp-transition);
 }
-.zp-social a:hover { background: var(--zp-amber); border-color: var(--zp-amber); color: var(--zp-green-950); transform: translateY(-2px); }
-.zp-social svg { width: 1.15rem; height: 1.15rem; }
+.zp-footer .zp-social a:hover { background: var(--zp-amber); border-color: var(--zp-amber); color: var(--zp-green-950); transform: translateY(-2px); text-decoration: none; }
+.zp-footer .zp-social svg { width: 1.2rem; height: 1.2rem; }
 
 /* ------------------------------------------------------ Contact page */
 .zp-contact-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
@@ -536,7 +538,7 @@ h1, h2, h3, h4, h5 {
 .zp-alert a { color: inherit; font-weight: 700; }
 
 /* --------------------------------------------------------- Fact strip */
-.zp-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--zp-border); border: 1px solid var(--zp-border); border-radius: var(--zp-radius); overflow: hidden; }
+.zp-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--zp-border); border: 1px solid var(--zp-border); border-radius: var(--zp-radius); overflow: hidden; margin: 0; }
 @media (min-width: 768px) { .zp-facts { grid-template-columns: repeat(4, 1fr); } }
 .zp-fact { background: var(--zp-surface); padding: 1.1rem 1rem; text-align: center; display: flex; flex-direction: column; }
 .zp-fact dt { order: 2; font-size: 0.72rem; color: var(--zp-muted); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 700; }
@@ -546,6 +548,7 @@ h1, h2, h3, h4, h5 {
 /* ----------------------------------------------------------- 404 / error */
 .zp-error-shell { text-align: center; padding-block: 5rem 5.5rem; }
 .zp-error-code { font-size: clamp(4.5rem, 18vw, 8rem); font-weight: 900; color: var(--zp-green-200); line-height: 1; letter-spacing: -0.05em; margin: 0; }
+[data-theme="dark"] .zp-error-code { color: rgba(52, 211, 153, 0.28); }
 
 /* ------------------------------------------------------- Prose for legal */
 .zp-prose { max-width: 68ch; }
