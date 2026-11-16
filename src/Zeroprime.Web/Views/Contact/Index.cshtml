@@ -1,0 +1,137 @@
+@model Zeroprime.Application.Features.Contact.CreateContactInquiryRequest
+@{
+    ViewData["Title"] = "Contact";
+    ViewData["Description"] = "Contact ZeroPrime Technologies - partnership, deployment and press inquiries. Email zeroprime.tech@gmail.com or use the form for CanBank venue deployments and smart-cities pilots.";
+    var submitted = (ViewData["Submitted"] as bool?) == true;
+    var crumbs = new[]
+    {
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Home", "/"),
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Contact")
+    };
+}
+
+<partial name="_Breadcrumb" model="crumbs" />
+
+<section class="zp-section zp-section--tight">
+    <div class="zp-container">
+        <span class="zp-eyebrow">Contact</span>
+        <h1 class="zp-section-title" style="font-size: clamp(2rem, 4.5vw, 3.2rem);">Let's talk.</h1>
+        <p class="zp-lead">Deploying CanBank, planning a smart-cities pilot, or interested in partnership — tell us about it.</p>
+    </div>
+</section>
+
+<section class="zp-section--tight" style="padding-bottom: 5rem;">
+    <div class="zp-container">
+        <div class="zp-contact-grid">
+            <div>
+                    @if (submitted)
+                    {
+                        <div class="zp-alert zp-alert--success" role="status" style="padding: 1.75rem;">
+                            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto;"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                            <div>
+                                <strong style="font-size: 1.05rem;">Message received.</strong><br />
+                                Thank you for reaching out — the team will get back to you at the email address you provided.
+                                <div style="margin-top: 0.9rem;">
+                                    <a class="zp-btn zp-btn--outline-dark zp-btn--sm" asp-controller="Contact" asp-action="Index">Send another message</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <form asp-controller="Contact" asp-action="Index" method="post" class="zp-form zp-card" id="contactForm" novalidate="false" style="padding: 1.75rem;">
+                            <div asp-validation-summary="ModelOnly" class="validation-summary-errors" role="alert"></div>
+
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label asp-for="Name"></label>
+                                    <input asp-for="Name" class="form-control" autocomplete="name" maxlength="120" placeholder="Your full name" />
+                                    <span asp-validation-for="Name" class="field-validation-valid"></span>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label asp-for="Email"></label>
+                                    <input asp-for="Email" class="form-control" type="email" autocomplete="email" maxlength="254" placeholder="you@example.com" />
+                                    <span asp-validation-for="Email" class="field-validation-valid"></span>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label asp-for="Company">Company <span style="font-weight: 400; color: var(--zp-muted);">(optional)</span></label>
+                                    <input asp-for="Company" class="form-control" autocomplete="organization" maxlength="150" placeholder="Company or organization" />
+                                    <span asp-validation-for="Company" class="field-validation-valid"></span>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label asp-for="Phone">Phone <span style="font-weight: 400; color: var(--zp-muted);">(optional)</span></label>
+                                    <input asp-for="Phone" class="form-control" type="tel" autocomplete="tel" maxlength="30" placeholder="+20 …" />
+                                    <span asp-validation-for="Phone" class="field-validation-valid"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label asp-for="Subject"></label>
+                                    <input asp-for="Subject" class="form-control" list="subjectSuggestions" maxlength="200" placeholder="What is this about?" />
+                                    <datalist id="subjectSuggestions">
+                                        <option value="CanBank venue deployment" />
+                                        <option value="Partnership / B2B" />
+                                        <option value="Smart cities pilot" />
+                                        <option value="Press &amp; media" />
+                                        <option value="General inquiry" />
+                                    </datalist>
+                                    <span asp-validation-for="Subject" class="field-validation-valid"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label asp-for="Message"></label>
+                                    <textarea asp-for="Message" class="form-control" rows="5" maxlength="4000" placeholder="Tell us about your venue, project or question…"></textarea>
+                                    <span asp-validation-for="Message" class="field-validation-valid"></span>
+                                </div>
+                            </div>
+
+                            <p style="font-size: 0.78rem; color: var(--zp-muted); margin: 0.9rem 0 0;">
+                                By submitting, you agree to our <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a>. We only use your details to respond to this inquiry.
+                            </p>
+
+                            <button type="submit" class="zp-btn zp-btn--amber zp-btn--lg" id="contactSubmit" style="margin-top: 1.1rem; width: 100%; justify-content: center;">
+                                <span class="submit-label">Send message</span>
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            </button>
+                        </form>
+                    }
+                </div>
+
+                <!-- Aside column -->
+                <aside>
+                    <div class="zp-card" style="padding: 1.75rem; background: var(--zp-green-900); border-color: transparent; color: #dcebe1;">
+                        <h2 style="color: #fff; font-size: 1.1rem; margin-top: 0;">Contact information</h2>
+                        <ul style="list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 1rem;">
+                            <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ffd166" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; margin-top: 0.15rem;"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                                <span><strong style="color:#fff;">Email</strong><br /><a style="color:#ffd166;" href="mailto:zeroprime.tech@gmail.com">zeroprime.tech@gmail.com</a></span>
+                            </li>
+                            <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ffd166" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; margin-top: 0.15rem;"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                                <span><strong style="color:#fff;">Headquarters</strong><br />Cairo, Al Qahirah, Egypt</span>
+                            </li>
+                            <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ffd166" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; margin-top: 0.15rem;"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                                <span><strong style="color:#fff;">Response time</strong><br />We aim to respond within a few business days.</span>
+                            </li>
+                        </ul>
+                        <hr style="border-color: rgba(255,255,255,0.14); margin: 1.25rem 0;" />
+                        <h3 style="color: #fff; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.6rem;">Social</h3>
+                        @await Component.InvokeAsync("SocialLinks")
+                    </div>
+
+                    <div class="zp-card" style="margin-top: 1.25rem;">
+                        <h2 style="font-size: 1rem; margin-top: 0;">For the fastest reply, include:</h2>
+                        <ul style="margin: 0.5rem 0 0; padding-left: 1.1rem; color: var(--zp-muted); line-height: 1.8; font-size: 0.92rem;">
+                            <li>Venue type and footfall (university, mall, club…)</li>
+                            <li>City and expected installation timeline</li>
+                            <li>Whether you are asking as a venue, brand or partner</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/contact-form.js" asp-append-version="true"></script>
+}

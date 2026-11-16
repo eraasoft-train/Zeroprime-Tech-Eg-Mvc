@@ -1,0 +1,108 @@
+@model Zeroprime.Web.ViewModels.About.AboutViewModel
+@{
+    ViewData["Title"] = "About Us";
+    ViewData["Description"] = "About ZeroPrime Technologies - an Egyptian startup founded in 2017 building smart sustainable cities infrastructure and autonomous waste management solutions from Cairo, Egypt.";
+    var crumbs = new[]
+    {
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Home", "/"),
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("About")
+    };
+    var company = Model.Company;
+    var description = company?.Description
+        ?? "ZeroPrime Technologies is an Egyptian startup specializing in smart sustainable cities infrastructure, with a focus on autonomous waste management solutions.";
+    var mission = company?.Mission
+        ?? "To design and implement smart city infrastructure aligned with sustainable development goals.";
+    var vision = company?.Vision
+        ?? "Sustainable cities powered by autonomous waste management, where recycling is accessible and rewarding for every citizen.";
+    var foundingYear = company?.FoundingYear ?? 2017;
+    var industry = company?.Industry ?? "Mechanical or Industrial Engineering / Smart Cities";
+    var location = company?.Location ?? "Cairo, Egypt";
+    var email = company?.ContactEmail ?? "zeroprime.tech@gmail.com";
+}
+
+<partial name="_Breadcrumb" model="crumbs" />
+
+<!-- Page header -->
+<section class="zp-section zp-section--tight">
+    <div class="zp-container">
+        <span class="zp-eyebrow">About us</span>
+        <h1 class="zp-section-title" style="font-size: clamp(2rem, 4.5vw, 3.2rem); max-width: 22ch;">Engineering the infrastructure<br />of sustainable cities.</h1>
+        <p class="zp-lead">@description</p>
+    </div>
+</section>
+
+<!-- Facts -->
+<section class="zp-section--tight" aria-label="Company facts">
+    <div class="zp-container">
+        <dl class="zp-facts">
+            <div class="zp-fact"><dt>Founded</dt><dd>@foundingYear</dd></div>
+            <div class="zp-fact"><dt>Headquarters</dt><dd>Cairo</dd></div>
+            <div class="zp-fact"><dt>Team size</dt><dd>2–10</dd></div>
+            <div class="zp-fact"><dt>Funding rounds</dt><dd>3</dd></div>
+        </dl>
+        <p class="text-muted-zp" style="font-size: 0.8rem; margin-top: 0.6rem;">Facts compiled from public company profiles (LinkedIn, Crunchbase), reviewed January 2026.</p>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="zp-section" aria-labelledby="mission-vision">
+    <div class="zp-container">
+        <span class="zp-eyebrow">Mission &amp; Vision</span>
+        <h2 class="zp-section-title" id="mission-vision">Why we exist.</h2>
+        <div class="zp-grid-2" style="margin-top: 2rem;">
+            <article class="zp-card">
+                <div class="zp-icon-tile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+                </div>
+                <h3>Mission</h3>
+                <p>@mission</p>
+            </article>
+            <article class="zp-card">
+                <div class="zp-icon-tile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.8-6.5 9.5-6.5S21.5 12 21.5 12 17.7 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                </div>
+                <h3>Vision</h3>
+                <p>@vision</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- What guides us -->
+<section class="zp-section zp-section--tint" aria-labelledby="values">
+    <div class="zp-container">
+        <span class="zp-eyebrow">What guides us</span>
+        <h2 class="zp-section-title" id="values">Values behind the work.</h2>
+        <p class="zp-lead">Drawn from the company's public mission and product design, these principles shape every decision.</p>
+        <div class="zp-grid-3" style="margin-top: 2rem;">
+            <div class="zp-card"><h3>Sustainability first</h3><p>Every system we build is judged by whether it helps cities waste less and recycle more.</p></div>
+            <div class="zp-card"><h3>Rewarding participation</h3><p>Recycling works best when doing the right thing is also the easy and rewarding thing.</p></div>
+            <div class="zp-card"><h3>Community impact</h3><p>CanBank lets users donate rewards to charity — turning recycling into support for causes that matter.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Investors & backing -->
+<section class="zp-section" aria-labelledby="backing">
+    <div class="zp-container">
+        <span class="zp-eyebrow">Backing</span>
+        <h2 class="zp-section-title" id="backing">Backed by organizations that bet on climate tech.</h2>
+        <p class="zp-lead">ZeroPrime Technologies has completed three funding rounds (grant funding, pre-seed funding, and non-equity assistance). Publicly listed backers include:</p>
+        <ul style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; list-style: none; padding: 0;">
+            <li class="zp-chip" style="font-size: 0.95rem; padding: 0.5rem 1rem;">MIT Enterprise Forum Pan Arab Region</li>
+            <li class="zp-chip" style="font-size: 0.95rem; padding: 0.5rem 1rem;">AUC Venture Lab</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Sources & disclaimer -->
+<section class="zp-section zp-section--tight">
+    <div class="zp-container">
+        <div class="zp-alert zp-alert--info">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
+            <div>
+                <strong>Sources &amp; accuracy.</strong> Company information on this page is compiled from publicly available sources — the company's LinkedIn page and Crunchbase profile (reviewed January 2026). It is not independently audited. For official information or corrections, contact <a href="mailto:@email">@email</a>.
+            </div>
+        </div>
+    </div>
+</section>

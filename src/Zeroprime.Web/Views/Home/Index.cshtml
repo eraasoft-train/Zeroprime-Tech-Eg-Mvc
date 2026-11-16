@@ -1,0 +1,145 @@
+@model Zeroprime.Web.ViewModels.Home.HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+    ViewData["Description"] = "ZeroPrime Technologies is an Egyptian startup founded in 2017 building smart, sustainable cities infrastructure and autonomous waste management - starting with CanBank, a reverse vending machine that rewards recycling.";
+    var company = Model.Company;
+    var canBank = Model.Products.FirstOrDefault();
+}
+
+<!-- Hero -->
+<section class="zp-hero">
+    <div class="zp-container">
+        <div class="zp-hero-grid">
+            <div>
+                <span class="zp-hero-badge"><span class="dot" aria-hidden="true"></span> Smart Sustainable Cities · Egypt</span>
+                <h1>Building <span class="accent">smarter</span>,<br />cleaner cities.</h1>
+                <p class="zp-hero-sub">@Model.Settings.HeroSubtitle ZeroPrime Technologies turns everyday recycling into a rewarding experience — starting with CanBank, a reverse vending machine for cans and plastic bottles.</p>
+                <div class="zp-hero-ctas">
+                    <a class="zp-btn zp-btn--amber zp-btn--lg" asp-controller="Products" asp-action="Index">
+                        Discover CanBank
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                    </a>
+                    <a class="zp-btn zp-btn--outline zp-btn--lg" asp-controller="About" asp-action="Index">Our mission</a>
+                </div>
+                <p class="zp-hero-trust">Publicly backed by <strong>MIT Enterprise Forum Pan Arab Region</strong> and <strong>AUC Venture Lab</strong> &nbsp;·&nbsp; Founded <strong>2017</strong>, Cairo, Egypt</p>
+            </div>
+            <div class="zp-hero-visual" aria-hidden="true">
+                <img src="~/images/canbank.svg" asp-append-version="true" alt="" width="420" height="560" loading="eager" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fact strip -->
+<div class="zp-container" style="margin-top: -1.5rem; position: relative; z-index: 2;">
+    <dl class="zp-facts" style="box-shadow: var(--zp-shadow-md); background: var(--zp-border);">
+        <div class="zp-fact"><dt>Founded</dt><dd>2017</dd></div>
+        <div class="zp-fact"><dt>Headquarters</dt><dd>Cairo</dd></div>
+        <div class="zp-fact"><dt>Funding rounds</dt><dd>3</dd></div>
+        <div class="zp-fact"><dt>First product</dt><dd>CanBank</dd></div>
+    </dl>
+</div>
+
+<!-- What we do -->
+<section class="zp-section" aria-labelledby="what-we-do">
+    <div class="zp-container">
+        <span class="zp-eyebrow">What we do</span>
+        <h2 class="zp-section-title" id="what-we-do">Autonomous waste management,<br />built for sustainable cities.</h2>
+        <p class="zp-lead">ZeroPrime Technologies designs and implements infrastructure that supports sustainable urban development — with autonomous waste management as the first piece of that vision.</p>
+
+        <div class="zp-grid-3" style="margin-top: 2.5rem;">
+            <article class="zp-card">
+                <div class="zp-icon-tile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M15 21v-8h4a1 1 0 0 1 1 1v7"/><path d="M9 7h1M9 11h1M9 15h1"/></svg>
+                </div>
+                <h3>Smart Cities Infrastructure</h3>
+                <p>Infrastructure solutions that support sustainable urban development as part of a broader smart-city vision for Egyptian cities.</p>
+            </article>
+            <article class="zp-card">
+                <div class="zp-icon-tile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l1.5 11a2 2 0 0 0 2 1.8h9a2 2 0 0 0 2-1.8L20 7"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M4 7h16"/></svg>
+                </div>
+                <h3>Autonomous Waste Management</h3>
+                <p>Self-service waste collection powered by reverse vending technology — rewarding citizens for recycling aluminum cans and plastic bottles.</p>
+            </article>
+            <article class="zp-card">
+                <div class="zp-icon-tile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4.5 0-8-2.9-8-7 0-5 4-9 8-9 2.5 0 6 1.5 6 6 0 4-2 6.5-6 6.5"/><path d="M12 21c0-6 2.5-9.5 6-12.5"/></svg>
+                </div>
+                <h3>Sustainable Development</h3>
+                <p>Technology aligned with sustainable development goals — making recycling part of daily urban life, not an afterthought.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+@if (canBank is not null)
+{
+    <!-- Product spotlight -->
+    <section class="zp-section zp-section--tint" aria-labelledby="canbank-spotlight">
+        <div class="zp-container">
+            <span class="zp-eyebrow">Our product</span>
+            <h2 class="zp-section-title" id="canbank-spotlight">Meet CanBank.</h2>
+
+            <div class="zp-product-panel" style="margin-top: 2rem;">
+                <div class="zp-product-media" aria-hidden="true">
+                    <img src="~/images/canbank.svg" asp-append-version="true" alt="" width="420" height="560" loading="lazy" />
+                </div>
+                <div class="zp-product-body">
+                    <span class="zp-chip zp-chip--dark">@canBank.Category</span>
+                    <h3 style="color:#fff; font-size: clamp(1.4rem, 2.6vw, 2rem); margin-top: 0.75rem;">Reverse vending that rewards recycling.</h3>
+                    <p>@canBank.Description</p>
+                    <ul class="zp-feature-list">
+                        @foreach (var feature in canBank.KeyFeatures)
+                        {
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>
+                                @feature
+                            </li>
+                        }
+                    </ul>
+                    <div style="margin-top: 1.75rem; display:flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <a class="zp-btn zp-btn--amber" asp-controller="Products" asp-action="Details" asp-route-id="@canBank.Id">Explore CanBank</a>
+                        <a class="zp-btn zp-btn--outline" asp-controller="Contact" asp-action="Index">Bring CanBank to your venue</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- How it works -->
+<section class="zp-section" aria-labelledby="how-it-works">
+    <div class="zp-container">
+        <span class="zp-eyebrow">How it works</span>
+        <h2 class="zp-section-title" id="how-it-works">Three steps to a cleaner city.</h2>
+        <div class="zp-steps" style="margin-top: 2rem;">
+            <div class="zp-step">
+                <h3>Deposit</h3>
+                <p>Insert used aluminum cans and plastic bottles into the CanBank reverse vending machine — in universities, fitness clubs, malls, supermarkets and public spaces.</p>
+            </div>
+            <div class="zp-step">
+                <h3>Get rewarded</h3>
+                <p>Choose instant mobile phone credit, promotional codes, or donate your reward to a charitable organization.</p>
+            </div>
+            <div class="zp-step">
+                <h3>We recycle</h3>
+                <p>Collected solid waste materials are subsequently recycled — closing the loop on single-use packaging.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="zp-section zp-section--tight" aria-labelledby="contact-cta">
+    <div class="zp-container">
+        <div class="zp-cta-band">
+            <h2 id="contact-cta">Planning a smart-city pilot?</h2>
+            <p>Tell us about your venue or project — high-traffic public spaces are where CanBank works best.</p>
+            <a class="zp-btn zp-btn--dark zp-btn--lg" asp-controller="Contact" asp-action="Index">
+                Talk to the team
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+        </div>
+    </div>
+</section>

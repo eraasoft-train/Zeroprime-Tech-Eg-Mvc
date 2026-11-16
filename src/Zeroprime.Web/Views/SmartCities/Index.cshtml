@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Smart Cities";
+    ViewData["Description"] = "ZeroPrime Technologies' smart-cities vision: autonomous waste management infrastructure designed for sustainable urban development, starting with the CanBank reverse vending machine.";
+    var crumbs = new[]
+    {
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Home", "/"),
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Smart Cities")
+    };
+}
+
+<partial name="_Breadcrumb" model="crumbs" />
+
+<section class="zp-section zp-section--tight">
+    <div class="zp-container">
+        <div class="zp-grid-2" style="align-items: center;">
+            <div>
+                <span class="zp-eyebrow">Smart cities</span>
+                <h1 class="zp-section-title" style="font-size: clamp(2rem, 4.5vw, 3.2rem);">Infrastructure for the cities we want to live in.</h1>
+                <p class="zp-lead">ZeroPrime Technologies designs and implements infrastructure solutions that support sustainable urban development. Autonomous waste management is the first system in that vision — CanBank is its first product.</p>
+                <div style="margin-top: 1.5rem;">
+                    <a class="zp-btn zp-btn--amber" asp-controller="Products" asp-action="Index">Explore CanBank</a>
+                </div>
+            </div>
+            <div>
+                <img src="~/images/smart-cities.svg" asp-append-version="true" alt="Illustration of a smart city skyline with a CanBank reverse vending kiosk" width="960" height="420" loading="lazy" style="width: 100%; height: auto; border-radius: var(--zp-radius-lg); border: 1px solid var(--zp-border);" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="zp-section" aria-labelledby="pillars">
+    <div class="zp-container">
+        <span class="zp-eyebrow">The vision</span>
+        <h2 class="zp-section-title" id="pillars">Three pillars of our approach.</h2>
+
+        <div class="zp-steps" style="margin-top: 2rem;">
+            <div class="zp-step">
+                <h3>Autonomous collection</h3>
+                <p>Reverse vending machines collect and sort beverage containers at the point of consumption — without manual intervention, around the clock.</p>
+            </div>
+            <div class="zp-step">
+                <h3>Rewarding citizens</h3>
+                <p>Every deposit earns instant value: mobile phone credit, promotional codes, or a donation to charity — because participation is the hardest part of recycling.</p>
+            </div>
+            <div class="zp-step">
+                <h3>Closing the loop</h3>
+                <p>Collected materials are subsequently recycled into new products, turning single-use packaging into a circular resource.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="zp-section zp-section--tint" aria-labelledby="why-egypt">
+    <div class="zp-container">
+        <span class="zp-eyebrow">Why Egypt</span>
+        <h2 class="zp-section-title" id="why-egypt">A national moment for sustainable cities.</h2>
+        <div class="zp-prose" style="margin-top: 1.25rem;">
+            <p>Egypt is investing heavily in new smart and sustainable urban centers. That build-out creates space for infrastructure companies that treat sustainability as a design requirement, not an add-on — exactly where ZeroPrime Technologies focuses its work.</p>
+            <p>CanBank targets the everyday touchpoint between citizens and waste: the moment a can or bottle is thrown away. Place enough of those touchpoints in the right venues, and waste collection stops being a public cost and starts being a public habit.</p>
+        </div>
+        <div class="zp-cta-band" style="margin-top: 2rem;">
+            <h2>Partner with us on a pilot.</h2>
+            <p>Venues with high beverage traffic — universities, fitness clubs, malls, supermarkets and public spaces — are where CanBank creates the most value.</p>
+            <a class="zp-btn zp-btn--dark zp-btn--lg" asp-controller="Contact" asp-action="Index">Start the conversation</a>
+        </div>
+    </div>
+</section>

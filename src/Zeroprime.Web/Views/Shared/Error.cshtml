@@ -1,0 +1,22 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    ViewData["Description"] = "An unexpected error occurred while processing your request.";
+}
+
+<section class="zp-error-shell">
+    <div class="zp-container">
+        <p class="zp-error-code" aria-hidden="true">!</p>
+        <h1 class="zp-section-title" style="margin-top: 0;">Something went wrong</h1>
+        <p class="zp-lead" style="margin-inline: auto;">An unexpected error occurred on our side. The team has been notified via the logs. Please try again in a moment.</p>
+
+        @if (Model.ShowRequestId)
+        {
+            <p class="text-muted-zp" style="font-size: 0.85rem;">Reference: <code>@Model.RequestId</code></p>
+        }
+
+        <div style="margin-top: 2rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <a class="zp-btn zp-btn--dark" asp-controller="Home" asp-action="Index">Back to homepage</a>
+        </div>
+    </div>
+</section>
