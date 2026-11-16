@@ -595,3 +595,18 @@ This repository contains a well-built **ASP.NET Core API** project but is **NOT 
 
 Generated: January 16, 2026  
 Next Document: `MIGRATION_PLAN.md`
+
+
+---
+
+## Addendum — Execution Outcome (2026-11-16)
+
+This audit was written on January 16, 2026, before implementation. The transformation was executed in November 2026; outcomes versus the audit:
+
+- **FinanceControl removed completely** — all FinanceControl source, migrations, static pages, tests, docs and CI references were deleted from the repository and the target solution/projects were created fresh (`Zeroprime.sln`, four `src/` projects, three `tests/` projects).
+- **One live-credential incident found and fixed before commit:** a production-looking external PostgreSQL connection string (with password) had been staged into the new `src/Zeroprime.Web/appsettings.json`. It was never committed (verified against git history) and was replaced with documented local-development defaults; production configuration comes from `ConnectionStrings__Postgres`. The referenced external database was **not** contacted or used.
+- **Architecture as planned** — Clean Architecture layers created; EF Core `InitialCreate` migration; repositories behind application abstractions; Razor views + custom design system; security headers; rate-limited contact form; dynamic sitemap/robots; `/health` readiness check.
+- **Testing** — unit, architecture and integration (Testcontainers) suites pass (see `tests/`). CI (`ci.yml`) gates on build, tests and `dotnet format --verify-no-changes`.
+- **Docker/CI** — the GitHub workflow previously pointed at the deleted FinanceControl Dockerfile and a `master` branch; replaced with `ci.yml` (main + `feature/**`) and `docker.yml` (GHCR, `main` only).
+- **Encoding artifacts:** the original audit and migration-plan documents contain UTF-8 glyphs that were mis-decoded when generated (`?` sequences); content is unaffected. New documents added by the implementation (`SYSTEM_ARCHITECTURE.md`, `docs/development/*`, `docs/deployment/*`) are clean UTF-8.
+- **Company content** — conservative, sourced approach implemented as planned; no team members, client logos, testimonials or statistics are presented, because none are publicly verified (see `docs/research/ZEROPRIME_COMPANY_RESEARCH.md`).
