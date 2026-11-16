@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.1] - 2026-11-16
+
+### Fixed
+
+- **Footer social icons rendered as a vertical stack** — `.zp-footer ul` (specificity 0-1-1) out-specified `.zp-social` (0-1-0), forcing `display: grid` with a single column; `.zp-footer a:hover` also beat the amber hover. The reset now uses `:not(.zp-social)` and the social rules are scoped to the footer with higher specificity. Icons render horizontally with the amber hover restored.
+- **Error page required the database** — both layout-level view components (`OrganizationSchema`, `SocialLinks`) called the database, so with the DB down the exception handler itself failed with a bare 500. Both components now fall back to verified static values and log a warning; `/Home/Error` renders the friendly page with the full layout even with the database unreachable (verified against a dead-DB instance).
+- Button `:disabled` state (opacity, cursor, no transform/shadow) and `touch-action: manipulation` on buttons.
+- Footer bottom bar centers on narrow screens; dark-mode error numeral contrast; `dl` default margin reset in the fact strip.
+- Removed dead `.zp-products-page` CSS rules.
+
+### Added
+
+- `.gitignore`: `Properties/PublishProfiles/` (local deployment profiles — the `.pubxml.user` password file was already ignored via `*.user`).
+
 ## [3.1.0] - 2026-11-16
 
 ### Added
