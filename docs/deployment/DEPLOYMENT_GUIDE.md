@@ -4,6 +4,8 @@
 
 The application ships as a single container image (`src/Zeroprime.Web/Dockerfile`) and expects **PostgreSQL 16+**. It applies EF migrations at startup when `Database:MigrateOnStartup=true` (default) and exposes `/health` for readiness.
 
+**Deploying to MonsterASP.NET?** → see [`MONSTERASP_DEPLOYMENT.md`](MONSTERASP_DEPLOYMENT.md) — verified guide (PostgreSQL 18 Beta supported, free tier, Visual Studio Web Deploy / FTP / GitHub deploy, environment variables via Control Panel, Let's Encrypt HTTPS). No code changes required.
+
 No reverse proxy is bundled — put any TLS-terminating proxy/load balancer in front (nginx, Caddy, Traefik, Azure App Gateway, …).
 
 ## Environment variables

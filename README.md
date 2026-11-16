@@ -100,6 +100,7 @@ Details: [`docs/development/PROJECT_STRUCTURE.md`](docs/development/PROJECT_STRU
 - [`docs/research/ZEROPRIME_COMPANY_RESEARCH.md`](docs/research/ZEROPRIME_COMPANY_RESEARCH.md) — every content claim with sources
 - [`docs/development/DEVELOPMENT_GUIDE.md`](docs/development/DEVELOPMENT_GUIDE.md) — dev workflow, migrations, configuration
 - [`docs/deployment/DEPLOYMENT_GUIDE.md`](docs/deployment/DEPLOYMENT_GUIDE.md) — Docker, CI/CD, production checklist
+- [`docs/deployment/MONSTERASP_DEPLOYMENT.md`](docs/deployment/MONSTERASP_DEPLOYMENT.md) — MonsterASP.NET (IIS hosting, hosted PostgreSQL 18, free tier)
 - [`CHANGELOG.md`](CHANGELOG.md) — version history
 
 ## Configuration

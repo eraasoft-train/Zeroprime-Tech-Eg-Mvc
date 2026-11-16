@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0] - 2026-11-16
+
+### Added
+
+- **Dark mode** — user-toggleable light/dark theme via a header button with `localStorage` persistence and `prefers-color-scheme` detection (applied pre-paint by `wwwroot/js/theme.js`, no flash). Full dark palette for surfaces, borders, forms, cards, shadows, header and footer.
+- **Custom scrollbars** — thin scrollbars themed with the site's emerald/amber palette (`scrollbar-color` for Firefox + `::-webkit-scrollbar` for Chromium); native up/down arrow buttons are hidden (`::-webkit-scrollbar-button { display: none }`).
+- `docs/deployment/MONSTERASP_DEPLOYMENT.md` — verified MonsterASP.NET deployment guide (PostgreSQL 18 Beta on the free tier, environment variables via Control Panel, Web Deploy / FTP / GitHub deploy, Let's Encrypt, free subdomain). No code changes were required — Npgsql works through their PgBouncer pooler unmodified. Includes a security note about a leaked `db80289` credential found in a local config file (never committed; rotate it).
+
+### Changed
+
+- Footer is pinned to the bottom on all page heights (flex-column body, growing `main`, non-shrinking footer) — verified via DOM geometry on short and long pages.
+- Social links: fixed raw Razor text leak in the SocialLinks view (`@if` missing `@`), amber hover state, outline-square icons, proper accessible markup.
+- Layout/grid: responsive fact strip (2→4 cols), 2-column card grid on tablets, consistent gaps, sections and radii; tighter mobile spacing and typography; improved grid stacking at all breakpoints; no horizontal scroll at any width.
+- Navbar: always-visible theme toggle button, logo switches to the light variant in dark mode, brand → panel → theme toggle ordering with mobile wrap.
+- Lighthouse re-audit (production build): **Accessibility 1.0 · Best Practices 1.0 · SEO 1.0** (was 0.94 / 1.0 / 1.0).
+
 ## [3.0.0] - 2026-11-16
 
 Complete transformation of the repository from the FinanceControl API demo into the production-ready **ZeroPrime Technologies** ASP.NET Core MVC website. See `docs/architecture/MIGRATION_PLAN.md` and `docs/architecture/REPOSITORY_AUDIT.md`.
