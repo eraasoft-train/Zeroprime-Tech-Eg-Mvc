@@ -487,17 +487,18 @@ h1, h2, h3, h4, h5 {
 .zp-footer-logo { height: 42px; width: auto; margin-bottom: 0.85rem; }
 .zp-footer p { line-height: 1.65; font-size: 0.92rem; margin: 0 0 0.9rem; }
 
-.zp-footer .zp-social { display: flex; flex-direction: row; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
-.zp-footer .zp-social li { display: block; }
-.zp-footer .zp-social a {
+.zp-social { display: flex; flex-direction: row; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.zp-social li { display: block; }
+.zp-social a {
   width: 2.3rem; height: 2.3rem; border-radius: 12px;
   display: grid; place-items: center;
   background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
   color: #dcebe1;
+  text-decoration: none;
   transition: background var(--zp-transition), transform var(--zp-transition), color var(--zp-transition), border-color var(--zp-transition);
 }
-.zp-footer .zp-social a:hover { background: var(--zp-amber); border-color: var(--zp-amber); color: var(--zp-green-950); transform: translateY(-2px); text-decoration: none; }
-.zp-footer .zp-social svg { width: 1.2rem; height: 1.2rem; }
+.zp-social a:hover { background: var(--zp-amber); border-color: var(--zp-amber); color: var(--zp-green-950); transform: translateY(-2px); text-decoration: none; }
+.zp-social svg { width: 1.2rem; height: 1.2rem; }
 
 /* ------------------------------------------------------ Contact page */
 .zp-contact-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
