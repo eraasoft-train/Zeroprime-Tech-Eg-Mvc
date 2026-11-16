@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "feature/**"]
+  pull_request:
+    branches: [main]
+
+env:
+  DOTNET_VERSION: 9.0.x
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore Zeroprime.sln
+
+      - name: Build
+        run: dotnet build Zeroprime.sln --configuration Release --no-restore
+
+      - name: Unit tests
+        run: dotnet test tests/Zeroprime.UnitTests --configuration Release --no-build --verbosity normal
+
+      - name: Architecture tests
+        run: dotnet test tests/Zeroprime.ArchitectureTests --configuration Release --no-build --verbosity normal
+
+      - name: Integration tests
+        # Testcontainers runs PostgreSQL in Docker; the ubuntu-latest runner has Docker available.
+        run: dotnet test tests/Zeroprime.IntegrationTests --configuration Release --no-build --verbosity normal
+
+      - name: Verify formatting
+        run: dotnet format Zeroprime.sln --verify-no-changes --verbosity diag

@@ -1,0 +1,30 @@
+@model IReadOnlyList<Zeroprime.Web.ViewModels.BreadcrumbItem>
+@{
+    if (Model is null || Model.Count == 0)
+    {
+        return;
+    }
+}
+<nav class="zp-breadcrumb" aria-label="Breadcrumb">
+    <div class="zp-container">
+        <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                var position = i + 1;
+                var isLast = i == Model.Count - 1;
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    @if (isLast || string.IsNullOrEmpty(item.Url))
+                    {
+                        <span aria-current="page" itemprop="name">@item.Label</span>
+                    }
+                    else
+                    {
+                        <a href="@item.Url" itemprop="item"><span itemprop="name">@item.Label</span></a>
+                    }
+                    <meta itemprop="position" content="@position" />
+                </li>
+            }
+        </ol>
+    </div>
+</nav>

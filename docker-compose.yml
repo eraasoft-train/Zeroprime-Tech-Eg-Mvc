@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: zeroprime-postgres
+    environment:
+      POSTGRES_USER: zeroprime
+      # Development-only credentials for local use. Override with a secrets
+      # manager or environment variables in any shared or production setting.
+      POSTGRES_PASSWORD: zeroprime_dev_only
+      POSTGRES_DB: zeroprime
+    ports:
+      - "5432:5432"
+    volumes:
+      - zeroprime-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zeroprime -d zeroprime"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: src/Zeroprime.Web/Dockerfile
+    container_name: zeroprime-web
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Development-only credentials. Never commit real secrets; supply them
+      # via your platform's secret store in real deployments.
+      ConnectionStrings__Postgres: Host=postgres;Port=5432;Database=zeroprime;Username=zeroprime;Password=zeroprime_dev_only
+      Database__MigrateOnStartup: "true"
+      ASPNETCORE_ENVIRONMENT: Production
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  zeroprime-pgdata:

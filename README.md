@@ -1,258 +1,122 @@
-# 💰 FinanceControl
+# Zeroprime-Tech-Eg-Mvc — ZeroPrime Technologies Website
 
-> A modern ASP.NET Core API for managing personal finances with comprehensive testing, Docker support, and event-driven architecture.
+> Production-ready ASP.NET Core 9 MVC application for **ZeroPrime Technologies**, an Egyptian startup building smart, sustainable cities infrastructure and autonomous waste management — starting with **CanBank**, a reverse vending machine that rewards recycling.
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc/actions/workflows/ci.yml/badge.svg)](https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc/actions/workflows/ci.yml)
+[![Docker](https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc/actions/workflows/docker.yml/badge.svg)](https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc/actions/workflows/docker.yml)
 [![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
-[![Docker](https://img.shields.io/badge/Docker-Supported-2496ED?logo=docker)](https://www.docker.com)
-[![Tests](https://img.shields.io/badge/Tests-18/22-green)](#-testing)
-[![Docs](https://img.shields.io/badge/Docs-Complete-blue)](DOCUMENTATION_INDEX.md)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## 🚀 Quick Start
+## What this is
 
-Get running in 5 minutes. See [Quick Start Guide](docs/QUICK_START.md) for detailed setup.
+The public website and company profile for **ZeroPrime Technologies** (Cairo, Egypt, founded 2017):
 
-```bash
-git clone https://github.com/Mostafa-SAID7/Finance-Api.git
-cd FinanceControl/src/FinanceControl.Api
-docker-compose up -d
-cd ../..
-dotnet run --project src/FinanceControl.Api/FinanceControl.Api.csproj
-```
+- **Corporate pages** — home, about, mission & vision, smart-cities vision
+- **Product showcase** — CanBank, a reverse vending machine for aluminum cans and plastic bottles
+- **Contact inquiries** — validated, anti-forgery protected, rate-limited contact form persisted to PostgreSQL
+- **SEO** — canonical URLs, Open Graph/Twitter cards, JSON-LD Organization schema, breadcrumb structured data, dynamic sitemap.xml and robots.txt
+- **Security** — security headers + CSP, anti-forgery tokens, rate limiting, Serilog structured logs, `/health` readiness endpoint
 
-**Access:**
-- 🌐 API: http://localhost:5012
-- 📖 Swagger: http://localhost:5012/swagger
-- 📊 Kibana: http://localhost:5601
+Company content is based on **publicly sourced, cross-checked information** (see [`docs/research/ZEROPRIME_COMPANY_RESEARCH.md`](docs/research/ZEROPRIME_COMPANY_RESEARCH.md)). Nothing about clients, deployments, statistics or team members is fabricated.
 
-## 📚 Documentation
+## Technology stack
 
-Choose your path based on what you need:
+| Layer | Technology |
+|-------|-----------|
+| Runtime | .NET 9, ASP.NET Core MVC (Razor) |
+| Architecture | Clean Architecture (Domain → Application → Infrastructure → Web) |
+| Database | PostgreSQL 16+, EF Core 9 (migrations + seed data) |
+| Frontend | Bootstrap 5.3, jQuery 3.7, jQuery Unobtrusive Validation, custom design system (no UI kits/templates) |
+| Logging | Serilog (console, structured) |
+| Validation | FluentValidation (server) + DataAnnotations (client-side) |
+| Testing | xUnit, WebApplicationFactory, Testcontainers (PostgreSQL), NetArchTest |
+| CI/CD | GitHub Actions (build/test/format + Docker image to GHCR) |
 
-| Goal | Document | Time |
-|------|----------|------|
-| **Get running** | [Quick Start](docs/QUICK_START.md) | 5 min |
-| **Understand system** | [Architecture](docs/ARCHITECTURE.md) | 10 min |
-| **Contribute code** | [Development Guide](docs/DEVELOPMENT.md) | 15 min |
-| **Run tests** | [Testing Guide](docs/TESTING_GUIDE.md) | 20 min |
-| **Deploy** | [Deployment Guide](docs/DEPLOYMENT.md) | 15 min |
-| **Monitor** | [Observability Guide](docs/OBSERVABILITY.md) | 15 min |
-| **Troubleshoot** | [Troubleshooting Guide](docs/TROUBLESHOOTING.md) | 20 min |
-| **Use API** | [API Reference](docs/API.md) | 10 min |
-| **See all** | [Documentation Index](DOCUMENTATION_INDEX.md) | — |
+## Quick start
 
-## ✨ Features
-
-- **Modern Stack** - .NET 9, ASP.NET Core, PostgreSQL
-- **Event-Driven** - Kafka integration for event publishing
-- **Comprehensive Testing** - 18/22 integration tests passing
-- **Observability** - Serilog, Elasticsearch, Kibana
-- **Caching** - Redis for performance optimization
-- **Docker Ready** - Multi-stage builds, docker-compose included
-- **CI/CD** - GitHub Actions for automated testing & deployment
-- **Clean Architecture** - Layered design with separation of concerns
-- **API Documentation** - Swagger/OpenAPI support
-- **Production Ready** - Fully documented and tested
-
-## 🏗️ Architecture
-
-Clean layered architecture with separation of concerns:
-
-```
-Controllers (API)
-    ↓
-Application (Business Logic)
-    ↓
-Domain (Entities & Rules)
-    ↓
-Infrastructure (Database, Cache, Events)
-```
-
-**See [Architecture Guide](docs/ARCHITECTURE.md) for detailed design.**
-
-## 📦 Project Structure
-
-```
-FinanceControl/
-├── src/FinanceControl.Api/
-│   ├── Controllers/          # API endpoints
-│   ├── Application/          # Business logic & DTOs
-│   ├── Domain/               # Domain models & entities
-│   ├── Infra/                # Infrastructure services
-│   └── Data/                 # Database & migrations
-├── tests/                    # Integration tests
-├── docs/                     # Complete documentation
-└── .github/                  # CI/CD & templates
-```
-
-**See [Development Guide](docs/DEVELOPMENT.md) for detailed structure.**
-
-## 🔌 API Endpoints
-
-| Method | Endpoint | Purpose |
-|--------|----------|---------|
-| GET | `/api/balance` | Get current balance |
-| POST | `/api/expenses` | Create expense |
-| GET | `/api/expenses` | List expenses |
-| GET | `/api/expenses/{id}` | Get expense |
-| PUT | `/api/expenses/{id}` | Update expense |
-| DELETE | `/api/expenses/{id}` | Delete expense |
-| POST | `/api/incomes` | Create income |
-| GET | `/api/incomes` | List incomes |
-| GET | `/api/incomes/{id}` | Get income |
-| PUT | `/api/incomes/{id}` | Update income |
-| DELETE | `/api/incomes/{id}` | Delete income |
-
-**See [API Reference](docs/API.md) for request/response examples.**
-
-## 🧪 Testing
+Prerequisites: [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0), [Docker](https://www.docker.com/).
 
 ```bash
-dotnet test                                    # Run all tests
-dotnet test --filter "TestClassName"           # Run specific test
-dotnet test /p:CollectCoverage=true            # Run with coverage
+git clone https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc.git
+cd Zeroprime-Tech-Eg-Mvc
+
+# 1. Start PostgreSQL (docker-compose publishes 5432)
+docker compose up -d postgres
+
+# 2. Apply migrations (seeds the verified company profile, CanBank product,
+#    site settings and social links)
+dotnet tool restore && dotnet tool run dotnet-ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
+
+# 3. Run
+dotnet run --project src/Zeroprime.Web
 ```
 
-**Status**: 18/22 passing ✅
-- Controllers: 2/2 ✅
-- Cache Service: 7/7 ✅
-- Redis Integration: 9/9 ✅
-- Logging: 4/4 (Docker timeout - infrastructure issue)
+Visit http://localhost:5135. The app also migrates automatically on startup when `Database:MigrateOnStartup` is `true` (default) — step 2 is then optional.
 
-**See [Testing Guide](docs/TESTING_GUIDE.md) for detailed information.**
-
-## 🐳 Docker
+### Full stack with Docker
 
 ```bash
-# Start all services
-cd src/FinanceControl.Api
-docker-compose up -d
-
-# Build image
-docker build -f src/FinanceControl.Api/Dockerfile -t finance-api:latest .
-
-# Run container
-docker run -d -p 5000:80 \
-  -e ConnectionStrings__Postgres="Host=postgres:5432;Database=FinanceControl;Username=postgres;Password=admin" \
-  -e Kafka__BootstrapServers="kafka:9092" \
-  finance-api:latest
+docker compose up --build
+# Web: http://localhost:8080  ·  Postgres: localhost:5432
 ```
 
-**See [Deployment Guide](docs/DEPLOYMENT.md) for production setup.**
-
-## 🔄 CI/CD
-
-Automated workflows on every push and pull request:
-- **Test Automation** - Runs integration tests
-- **Docker Build** - Builds and pushes to GitHub Container Registry
-- **Image Tagging** - Automatic semantic versioning
-
-**Registry**: `ghcr.io/mostafa-said7/finance-api`
-
-**See [Deployment Guide](docs/DEPLOYMENT.md) for details.**
-
-## 📊 Technology Stack
-
-| Component | Technology |
-|-----------|-----------|
-| Runtime | .NET 9 |
-| Framework | ASP.NET Core |
-| Database | PostgreSQL 15 |
-| ORM | Entity Framework Core 9.0 |
-| Message Broker | Kafka |
-| Cache | Redis 7 |
-| Logging | Serilog |
-| Log Storage | Elasticsearch 8.11 |
-| Log Viewer | Kibana 8.11 |
-| Testing | xUnit, Testcontainers |
-| API Docs | Swagger/OpenAPI |
-| Containerization | Docker |
-| CI/CD | GitHub Actions |
-
-## 🛠️ Development
-
-### Add New Feature
-
-1. Create domain model in `Domain/`
-2. Create database migration
-3. Implement business logic in `Application/`
-4. Create controller endpoint in `Controllers/`
-5. Add integration tests
-6. Submit pull request
-
-### Database Migrations
+## Testing
 
 ```bash
-dotnet ef migrations add MigrationName --project src/FinanceControl.Api
-dotnet run --project src/FinanceControl.Api/FinanceControl.Api.csproj
+dotnet test                                  # everything
+dotnet test tests/Zeroprime.UnitTests        # domain, validators, services (fast)
+dotnet test tests/Zeroprime.ArchitectureTests# layer dependency rules
+dotnet test tests/Zeroprime.IntegrationTests # boots the app against a disposable PostgreSQL container
 ```
 
-**See [Development Guide](docs/DEVELOPMENT.md) for detailed instructions.**
+Integration tests require Docker. See [`docs/development/TESTING_GUIDE.md`](docs/development/TESTING_GUIDE.md).
 
-## 🤝 Contributing
+## Project structure
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
-- Development setup
-- Code style guidelines
-- Testing requirements
-- Pull request process
+```text
+src/
+├── Zeroprime.Domain/         # Entities, enums, domain rules (no dependencies)
+├── Zeroprime.Application/    # DTOs, application services, FluentValidation validators
+├── Zeroprime.Infrastructure/ # EF Core context, migrations, repositories, seeding
+└── Zeroprime.Web/            # MVC controllers, Razor views, ViewComponents, wwwroot
+tests/
+├── Zeroprime.UnitTests/
+├── Zeroprime.IntegrationTests/
+└── Zeroprime.ArchitectureTests/
+docs/
+├── architecture/             # Audit, migration plan, system architecture
+├── research/                 # Company research with source citations
+├── development/              # Dev guide, testing guide, dependencies, structure
+└── deployment/               # Deployment guide
+```
 
-**Quick start:**
+Details: [`docs/development/PROJECT_STRUCTURE.md`](docs/development/PROJECT_STRUCTURE.md)
+
+## Documentation
+
+- [`docs/architecture/SYSTEM_ARCHITECTURE.md`](docs/architecture/SYSTEM_ARCHITECTURE.md) — architecture and decisions
+- [`docs/architecture/REPOSITORY_AUDIT.md`](docs/architecture/REPOSITORY_AUDIT.md) — what the repo was, and why it changed
+- [`docs/architecture/MIGRATION_PLAN.md`](docs/architecture/MIGRATION_PLAN.md) — transformation plan
+- [`docs/research/ZEROPRIME_COMPANY_RESEARCH.md`](docs/research/ZEROPRIME_COMPANY_RESEARCH.md) — every content claim with sources
+- [`docs/development/DEVELOPMENT_GUIDE.md`](docs/development/DEVELOPMENT_GUIDE.md) — dev workflow, migrations, configuration
+- [`docs/deployment/DEPLOYMENT_GUIDE.md`](docs/deployment/DEPLOYMENT_GUIDE.md) — Docker, CI/CD, production checklist
+- [`docs/deployment/MONSTERASP_DEPLOYMENT.md`](docs/deployment/MONSTERASP_DEPLOYMENT.md) — MonsterASP.NET (IIS hosting, hosted PostgreSQL 18, free tier)
+- [`CHANGELOG.md`](CHANGELOG.md) — version history
+
+## Configuration
+
+No secrets live in this repository. Provide the connection string via environment variable:
+
 ```bash
-git checkout -b feature/your-feature
-# Make changes and add tests
-git commit -m "feat: Your feature description"
-git push origin feature/your-feature
-# Create Pull Request
+ConnectionStrings__Postgres="Host=...;Port=5432;Database=zeroprime;Username=...;Password=..."
 ```
 
-## 📖 Documentation
+Optional settings: `Database:MigrateOnStartup` (default `true`). See [appsettings.json](src/Zeroprime.Web/appsettings.json).
 
-Complete documentation is available in [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md).
+## Contributing
 
-**Key guides:**
-- [Quick Start](docs/QUICK_START.md) - 5 min setup
-- [Setup Guide](docs/SETUP_GUIDE.md) - Detailed installation
-- [Architecture](docs/ARCHITECTURE.md) - System design
-- [Development](docs/DEVELOPMENT.md) - Development workflow
-- [Testing Guide](docs/TESTING_GUIDE.md) - Testing strategies
-- [Observability](docs/OBSERVABILITY.md) - Monitoring setup
-- [Deployment](docs/DEPLOYMENT.md) - Production deployment
-- [API Reference](docs/API.md) - API endpoints
-- [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues
-- [Changelog](CHANGELOG.md) - Version history
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-**Total**: 13 documents, ~15,000 words, 100+ examples
+## License
 
-## 🐛 Troubleshooting
-
-**Common issues:**
-- **Database Connection** - See [Troubleshooting Guide](docs/TROUBLESHOOTING.md#database)
-- **Kafka Connection** - See [Troubleshooting Guide](docs/TROUBLESHOOTING.md#kafka)
-- **Redis Connection** - See [Troubleshooting Guide](docs/TROUBLESHOOTING.md#redis)
-- **Docker Issues** - See [Troubleshooting Guide](docs/TROUBLESHOOTING.md#docker)
-- **Test Failures** - See [Testing Guide](docs/TESTING_GUIDE.md#troubleshooting)
-
-**Full guide**: [Troubleshooting Guide](docs/TROUBLESHOOTING.md) (50+ solutions)
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## 🙏 Acknowledgments
-
-- Based on [Live #69: Implementando Testes de Integração em .NET com Docker](https://www.youtube.com/live/o5Q73A-rrlg?feature=share)
-- Original repository: [bufaonanet/FinanceControl](https://github.com/bufaonanet/FinanceControl)
-
-## 📞 Support
-
-- 📋 [Report a Bug](https://github.com/Mostafa-SAID7/Finance-Api/issues/new?template=bug_report.md)
-- 💡 [Request a Feature](https://github.com/Mostafa-SAID7/Finance-Api/issues/new?template=feature_request.md)
-- 💬 [Discussions](https://github.com/Mostafa-SAID7/Finance-Api/discussions)
-- 📖 [Documentation](DOCUMENTATION_INDEX.md)
-
----
-
-**Made with ❤️ by [Mostafa SAID](https://github.com/Mostafa-SAID7)**
-
-**Status**: ✅ Production Ready | 18/22 Tests Passing | Fully Documented
+MIT — see [LICENSE](LICENSE). Company information remains the property of ZeroPrime Technologies.

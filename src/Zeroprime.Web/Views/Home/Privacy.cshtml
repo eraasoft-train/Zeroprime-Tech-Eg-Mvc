@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+    ViewData["Description"] = "How ZeroPrime Technologies collects, uses and protects information submitted through this website, including the contact form.";
+    var crumbs = new[]
+    {
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Home", "/"),
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Privacy Policy")
+    };
+}
+
+<partial name="_Breadcrumb" model="crumbs" />
+
+<section class="zp-section zp-section--tight">
+    <div class="zp-container zp-prose">
+        <span class="zp-eyebrow">Legal</span>
+        <h1 class="zp-section-title">Privacy Policy</h1>
+        <p class="text-muted-zp">Last updated: January 2026</p>
+
+        <h2>Overview</h2>
+        <p>This Privacy Policy explains what information the ZeroPrime Technologies website collects, why we collect it, and the choices you have. It applies to the public website only — not to any third-party services we link to.</p>
+
+        <h2>Information we collect</h2>
+        <p><strong>Contact form submissions.</strong> When you submit our contact form, we store the details you provide: your name, email address, optional company and phone number, a subject line, and your message. This information is used solely to respond to your inquiry and to maintain a record of business communication.</p>
+        <p><strong>Server logs.</strong> Like most websites, our servers record technical information such as IP addresses, browser type and pages requested. These logs are used for security, abuse prevention (including rate limiting of the contact form) and troubleshooting.</p>
+
+        <h2>How we use your information</h2>
+        <ul>
+            <li>To respond to inquiries you send us.</li>
+            <li>To operate, secure and improve this website.</li>
+            <li>To comply with legal obligations.</li>
+        </ul>
+        <p>We do not sell your personal information, and we do not use it for advertising profiles.</p>
+
+        <h2>Data retention</h2>
+        <p>Contact inquiries are retained for as long as needed to handle your request and any related follow-up, after which they are periodically reviewed and deleted. Technical logs are retained for a limited period for security purposes.</p>
+
+        <h2>Your rights</h2>
+        <p>You may request a copy, correction or deletion of the personal information we hold about you by emailing <a href="mailto:zeroprime.tech@gmail.com">zeroprime.tech@gmail.com</a>. We will respond within a reasonable timeframe.</p>
+
+        <h2>Cookies and local storage</h2>
+        <p>This website does not use advertising, analytics or tracking cookies, and does not profile visitors. It sets a small number of strictly necessary cookies and uses your browser's local storage:</p>
+        <div class="table-responsive">
+        <table class="table table-sm zp-cookie-table" style="font-size: 0.88rem;">
+            <thead>
+                <tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Purpose</th><th scope="col">Duration</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>.AspNetCore.Antiforgery.*</code></td><td>Cookie (HttpOnly, SameSite=Lax)</td><td>Anti-forgery validation for the contact form</td><td>Session</td></tr>
+                <tr><td><code>zp_consent</code></td><td>Cookie (SameSite=Lax)</td><td>Remembers your consent choice, mirrors local storage</td><td>1 year</td></tr>
+                <tr><td><code>zp.session</code></td><td>Cookie (HttpOnly, SameSite=Lax)</td><td>Server-side session state for future interactive features</td><td>20 minutes</td></tr>
+                <tr><td><code>zp-consent</code></td><td>localStorage</td><td>Your consent choice (<code>accepted</code> / <code>essentials</code>)</td><td>Until cleared</td></tr>
+                <tr><td><code>zp-consent-dismissed</code></td><td>sessionStorage</td><td>Remembers you dismissed the notice (this session only)</td><td>Tab session</td></tr>
+                <tr><td><code>zp-theme</code></td><td>localStorage</td><td>Your light/dark theme preference</td><td>Until cleared</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <p>The cookie-consent banner appears on first visit, about 3 seconds after the page loads, and stays hidden after you make a choice or dismiss it for the session. You can reset your choice at any time by clearing these values in your browser (site data / cookies), after which the banner will appear again on your next visit.</p>
+
+        <h2>Changes to this policy</h2>
+        <p>We may update this policy as the website evolves. Material changes will be reflected on this page with an updated revision date.</p>
+
+        <h2>Contact</h2>
+        <p>Questions about this policy: <a href="mailto:zeroprime.tech@gmail.com">zeroprime.tech@gmail.com</a> · Cairo, Al Qahirah, Egypt.</p>
+    </div>
+</section>

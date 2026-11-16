@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Discussions
-    url: https://github.com/Mostafa-SAID7/Finance-Api/discussions
+    url: https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc/discussions
     about: Ask questions and discuss ideas
-  - name: Documentation
-    url: https://github.com/Mostafa-SAID7/Finance-Api/blob/master/DOCUMENTATION_INDEX.md
-    about: Read the documentation
+  - name: Website
+    url: https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc
+    about: Browse the repository and documentation

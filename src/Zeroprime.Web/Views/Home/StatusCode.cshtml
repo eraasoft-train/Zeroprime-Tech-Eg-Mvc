@@ -1,0 +1,17 @@
+@model Zeroprime.Web.ViewModels.StatusCodeViewModel
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = "The page you requested could not be found or an error occurred.";
+}
+
+<section class="zp-error-shell">
+    <div class="zp-container">
+        <p class="zp-error-code" aria-hidden="true">@Model.StatusCode</p>
+        <h1 class="zp-section-title" style="margin-top: 0;">@Model.Title</h1>
+        <p class="zp-lead" style="margin-inline: auto;">@Model.Message</p>
+        <div style="margin-top: 2rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+            <a class="zp-btn zp-btn--dark" asp-controller="Home" asp-action="Index">Back to homepage</a>
+            <a class="zp-btn zp-btn--outline-dark" asp-controller="Contact" asp-action="Index">Contact us</a>
+        </div>
+    </div>
+</section>

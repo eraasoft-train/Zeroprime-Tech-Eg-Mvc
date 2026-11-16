@@ -1,293 +1,60 @@
-# Contributing to FinanceControl
+# Contributing to Zeroprime-Tech-Eg-Mvc
 
-Thank you for your interest in contributing to FinanceControl! This document provides guidelines and instructions for contributing.
+Thanks for your interest in contributing to the ZeroPrime Technologies website.
+This document describes the expected workflow and standards.
 
 ## Code of Conduct
 
 Be respectful, inclusive, and professional in all interactions.
 
+## Prerequisites
+
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (9.0.x)
+- [Docker](https://www.docker.com/) (for PostgreSQL via docker-compose, and for the Testcontainers-based integration tests)
+- Git
+
 ## Getting Started
 
-### Prerequisites
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- [Git](https://git-scm.com/)
+```bash
+git clone https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc.git
+cd Zeroprime-Tech-Eg-Mvc
+docker compose up -d postgres
+dotnet restore
+dotnet tool restore && dotnet tool run dotnet-ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
+dotnet run --project src/Zeroprime.Web
+```
 
-### Setup Development Environment
-
-1. **Fork the repository**
-   ```bash
-   # Click "Fork" on GitHub
-   ```
-
-2. **Clone your fork**
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/Finance-Api.git
-   cd FinanceControl
-   ```
-
-3. **Add upstream remote**
-   ```bash
-   git remote add upstream https://github.com/Mostafa-SAID7/Finance-Api.git
-   ```
-
-4. **Start infrastructure**
-   ```bash
-   cd src/FinanceControl.Api
-   docker-compose up -d
-   cd ../..
-   ```
-
-5. **Run the application**
-   ```bash
-   dotnet run --project src/FinanceControl.Api/FinanceControl.Api.csproj
-   ```
-
-6. **Run tests**
-   ```bash
-   dotnet test
-   ```
+Visit http://localhost:5135 (see `src/Zeroprime.Web/Properties/launchSettings.json`).
 
 ## Development Workflow
 
-### 1. Create a Feature Branch
-
-```bash
-git checkout -b feature/your-feature-name
-```
-
-**Branch naming conventions**:
-- `feature/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation updates
-- `refactor/` - Code refactoring
-- `test/` - Test additions
-
-### 2. Make Changes
-
-- Follow the existing code style
-- Write clean, readable code
-- Add comments for complex logic
-- Keep commits atomic and focused
-
-### 3. Write Tests
-
-For every feature or bug fix:
-
-```bash
-# Add tests in tests/FinanceControl.IntegrationTests/
-# Run tests to verify
-dotnet test
-```
-
-**Test requirements**:
-- Unit tests for business logic
-- Integration tests for API endpoints
-- Tests should be isolated and repeatable
-
-### 4. Commit Changes
-
-```bash
-git add .
-git commit -m "type: Brief description"
-```
-
-**Commit message format**:
-```
-type: Brief description (50 chars max)
-
-Longer explanation if needed (wrap at 72 chars)
-
-Fixes #123
-```
-
-**Types**:
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation
-- `test:` - Test additions
-- `refactor:` - Code refactoring
-- `perf:` - Performance improvement
-- `chore:` - Build, dependencies, etc.
-
-### 5. Push and Create Pull Request
-
-```bash
-git push origin feature/your-feature-name
-```
-
-Then create a Pull Request on GitHub with:
-- Clear title describing the change
-- Description of what changed and why
-- Reference to related issues (#123)
-- Screenshots if UI changes
-
-## Code Style Guidelines
-
-### C# / .NET
-
-- Follow [Microsoft C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
-- Use meaningful variable and method names
-- Keep methods focused and small
-- Use async/await for I/O operations
-- Add XML documentation comments for public APIs
-
-### Example
-
-```csharp
-/// <summary>
-/// Adds a new expense to the system.
-/// </summary>
-/// <param name="request">The expense request details</param>
-/// <returns>The created expense response</returns>
-public async Task<ExpenseResponse> AddExpenseAsync(ExpenseRequest request)
-{
-    // Implementation
-}
-```
-
-### Project Structure
-
-```
-src/FinanceControl.Api/
-├── Controllers/          # API endpoints
-├── Application/          # Business logic & DTOs
-├── Domain/               # Domain models & entities
-├── Infra/                # Infrastructure services
-└── Data/                 # Database & migrations
-```
-
-## Testing Guidelines
-
-### Test Structure
-
-```csharp
-[Fact]
-public async Task MethodName_Scenario_ExpectedResult()
-{
-    // Arrange
-    var input = new TestData();
-    
-    // Act
-    var result = await service.MethodAsync(input);
-    
-    // Assert
-    Assert.NotNull(result);
-    Assert.Equal(expected, result.Value);
-}
-```
-
-### Test Categories
-
-- **Unit Tests**: Test individual methods in isolation
-- **Integration Tests**: Test API endpoints with real services
-- **Performance Tests**: Test under load conditions
-
-### Running Tests
-
-```bash
-# Run all tests
-dotnet test
-
-# Run specific test class
-dotnet test --filter "TestClassName"
-
-# Run with coverage
-dotnet test /p:CollectCoverage=true
-```
-
-## Documentation
-
-### When to Update Documentation
-
-- Adding new features
-- Changing configuration
-- Fixing bugs that affect usage
-- Improving clarity
-
-### Documentation Files
-
-- **README.md** - Project overview
-- **docs/QUICK_START.md** - 5-minute setup
-- **docs/SETUP_GUIDE.md** - Detailed installation
-- **docs/DEVELOPMENT.md** - Development workflow
-- **docs/TESTING_GUIDE.md** - Testing guide
-- **CHANGELOG.md** - Version history
-
-## Pull Request Process
-
-1. **Update your branch**
+1. Create a branch from `main`: `git checkout -b feature/your-change`
+2. Make your changes in small, logical commits with conventional messages (`feat:`, `fix:`, `docs:`, `test:`, `refactor:`).
+3. Add or update tests for any behavior change.
+4. Run the full quality gate locally:
    ```bash
-   git fetch upstream
-   git rebase upstream/master
-   ```
-
-2. **Ensure tests pass**
-   ```bash
+   dotnet build
    dotnet test
+   dotnet format --verify-no-changes
    ```
+5. Open a pull request against `main`. Fill in the PR template, including screenshots for UI changes.
 
-3. **Push changes**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+## Standards
 
-4. **Create Pull Request**
-   - Use the PR template
-   - Link related issues
-   - Describe changes clearly
-   - Request reviewers
-
-5. **Address feedback**
-   - Make requested changes
-   - Push updates (don't force push)
-   - Re-request review
-
-6. **Merge**
-   - Maintainers will merge when approved
-   - Delete your branch after merge
+- **Architecture** — keep the Clean Architecture boundaries intact: Domain must not reference Infrastructure, Application or Web; Application must not reference Infrastructure or Web. Architecture tests enforce this in CI.
+- **Controllers** stay thin; business logic lives in Application services.
+- **Views** render models; no business logic in Razor.
+- **Content accuracy** — company facts must stay traceable to the verified research in `docs/research/ZEROPRIME_COMPANY_RESEARCH.md`. Do not fabricate statistics, clients, testimonials or team members.
+- **No secrets** — never commit credentials or connection strings with real passwords. Use environment variables (`ConnectionStrings__Postgres`) or user-secrets locally.
 
 ## Reporting Issues
 
-### Bug Reports
+Open a GitHub issue using the bug report template. For security reports, email **zeroprime.tech@gmail.com** instead of filing a public issue.
 
-Include:
-- Clear description of the bug
-- Steps to reproduce
-- Expected behavior
-- Actual behavior
-- Environment (OS, .NET version, etc.)
-- Error messages or logs
+## Pull Request Checklist
 
-### Feature Requests
-
-Include:
-- Clear description of the feature
-- Use case and motivation
-- Proposed implementation (optional)
-- Examples or mockups (if applicable)
-
-## Getting Help
-
-- 📖 Read [Documentation Index](DOCUMENTATION_INDEX.md)
-- 💬 Open a [Discussion](https://github.com/Mostafa-SAID7/Finance-Api/discussions)
-- 📋 Check [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
-- 🐛 Search [Existing Issues](https://github.com/Mostafa-SAID7/Finance-Api/issues)
-
-## Recognition
-
-Contributors will be recognized in:
-- Pull request comments
-- Release notes
-- Contributors list (coming soon)
-
-## Questions?
-
-Feel free to:
-- Open a discussion
-- Ask in an issue
-- Contact the maintainers
-
----
-
-Thank you for contributing to FinanceControl! 🎉
+- [ ] `dotnet build` succeeds with no warnings
+- [ ] `dotnet test` passes (unit, architecture and integration tests)
+- [ ] `dotnet format --verify-no-changes` passes
+- [ ] Documentation updated where relevant
+- [ ] No secrets or generated artifacts committed

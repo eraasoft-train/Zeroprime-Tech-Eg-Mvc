@@ -2,6 +2,111 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.1] - 2026-11-16
+
+### Added
+
+- **Scroll to top button** — floating amber circular button, bottom-right, appears after 320px of scroll with a smooth fade/rise animation, smooth-scrolls to the top (instant on `prefers-reduced-motion`), shifts upward while the cookie banner is visible. ~50 lines of dependency-free JS/CSS.
+
+### Changed
+
+- Footer bottom bar: "Built with EraaSoft" external link to https://eraasoft.com added to the copyright line (amber, subtle underline).
+- Footer bottom bar now shows **accepted payment method** glyphs instead of the "Company information…" note: Visa, Mastercard, American Express and Meeza as inline SVG cards (no visible text; `aria-label`s retained for screen readers).
+
+### Fixed
+
+- **Duplicate logo and brand name in the header** — `.zp-brand img { display: block }` (specificity 0-1-1) out-specified the theme switch hiding rule `.zp-logo--light` / `.zp-logo--dark` (0-1-0). Removed the redundant `display: block` (brand link is inline-flex, so images are blockified automatically); exactly one logo renders per theme.
+
+## [3.2.0] - 2026-11-16
+
+### Added
+
+- **Cookie consent banner** — modern, app-style bottom banner that fades in with a smooth animation ~3 seconds after page load (never before first paint). Choice persisted to `localStorage` (`zp-consent`) and a first-party cookie (`zp_consent`, 1 year, `SameSite=Lax`); "Essentials only" and close/Escape dismiss without storing consent; banner stays hidden after choice. `aria` wiring, Escape-to-dismiss, `prefers-reduced-motion` support, safe-area insets for iOS. Small `window.ZeroPrimeConsent` API for future non-essential features.
+- **Session** support with hardened defaults — `zp.session` cookie: HttpOnly, SameSite=Lax, 20-minute sliding expiry, `IsEssential`; wired into the pipeline via `app.UseSession()`.
+- **Privacy Policy** now documents the real, complete cookie/storage inventory (antiforgery, `zp_consent`, `zp.session`, `zp-consent`, `zp-consent-dismissed`, `zp-theme`) with durations and purposes, in a responsive theme-aware table.
+- Integration tests asserting the banner markup renders on public pages and the privacy policy documents the real cookies (20 integration tests total).
+
+## [3.1.1] - 2026-11-16
+
+### Fixed
+
+- **Footer social icons rendered as a vertical stack** — `.zp-footer ul` (specificity 0-1-1) out-specified `.zp-social` (0-1-0), forcing `display: grid` with a single column; `.zp-footer a:hover` also beat the amber hover. The reset now uses `:not(.zp-social)` and the social rules are scoped to the footer with higher specificity. Icons render horizontally with the amber hover restored.
+- **Error page required the database** — both layout-level view components (`OrganizationSchema`, `SocialLinks`) called the database, so with the DB down the exception handler itself failed with a bare 500. Both components now fall back to verified static values and log a warning; `/Home/Error` renders the friendly page with the full layout even with the database unreachable (verified against a dead-DB instance).
+- Button `:disabled` state (opacity, cursor, no transform/shadow) and `touch-action: manipulation` on buttons.
+- Footer bottom bar centers on narrow screens; dark-mode error numeral contrast; `dl` default margin reset in the fact strip.
+- Removed dead `.zp-products-page` CSS rules.
+
+### Added
+
+- `.gitignore`: `Properties/PublishProfiles/` (local deployment profiles — the `.pubxml.user` password file was already ignored via `*.user`).
+
+## [3.1.0] - 2026-11-16
+
+### Added
+
+- **Dark mode** — user-toggleable light/dark theme via a header button with `localStorage` persistence and `prefers-color-scheme` detection (applied pre-paint by `wwwroot/js/theme.js`, no flash). Full dark palette for surfaces, borders, forms, cards, shadows, header and footer.
+- **Custom scrollbars** — thin scrollbars themed with the site's emerald/amber palette (`scrollbar-color` for Firefox + `::-webkit-scrollbar` for Chromium); native up/down arrow buttons are hidden (`::-webkit-scrollbar-button { display: none }`).
+- `docs/deployment/MONSTERASP_DEPLOYMENT.md` — verified MonsterASP.NET deployment guide (PostgreSQL 18 Beta on the free tier, environment variables via Control Panel, Web Deploy / FTP / GitHub deploy, Let's Encrypt, free subdomain). No code changes were required — Npgsql works through their PgBouncer pooler unmodified. Includes a security note about a leaked `db80289` credential found in a local config file (never committed; rotate it).
+
+### Changed
+
+- Footer is pinned to the bottom on all page heights (flex-column body, growing `main`, non-shrinking footer) — verified via DOM geometry on short and long pages.
+- Social links: fixed raw Razor text leak in the SocialLinks view (`@if` missing `@`), amber hover state, outline-square icons, proper accessible markup.
+- Layout/grid: responsive fact strip (2→4 cols), 2-column card grid on tablets, consistent gaps, sections and radii; tighter mobile spacing and typography; improved grid stacking at all breakpoints; no horizontal scroll at any width.
+- Navbar: always-visible theme toggle button, logo switches to the light variant in dark mode, brand → panel → theme toggle ordering with mobile wrap.
+- Lighthouse re-audit (production build): **Accessibility 1.0 · Best Practices 1.0 · SEO 1.0** (was 0.94 / 1.0 / 1.0).
+
+## [3.0.0] - 2026-11-16
+
+Complete transformation of the repository from the FinanceControl API demo into the production-ready **ZeroPrime Technologies** ASP.NET Core MVC website. See `docs/architecture/MIGRATION_PLAN.md` and `docs/architecture/REPOSITORY_AUDIT.md`.
+
+### Added
+
+#### Application
+- ASP.NET Core 9 MVC application with Razor views and a custom responsive design system (deep-emerald/amber palette, Bootstrap 5.3 grid)
+- Public pages: Home, About (mission/vision/values/backers), CanBank product index + details, Smart Cities, Contact, Privacy, Terms, custom 404 and error pages
+- Contact inquiries persisted to PostgreSQL (FluentValidation + DataAnnotations, anti-forgery protected, rate limited to 5 submissions per 10 minutes per IP, PRG pattern)
+- JSON-LD Organization schema, Open Graph/Twitter metadata, canonical URLs, breadcrumb structured data, dynamic `/sitemap.xml` and `/robots.txt`
+- Security headers middleware (CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, Cross-Origin-Opener-Policy), HSTS, secure error handling without internal leaks
+- `/health` readiness endpoint (EF Core DbContext health check)
+- Serilog structured logging (console) with request logging
+- Response caching headers for static assets, in-memory caching for brochure content
+
+#### Architecture
+- Clean Architecture solution: `Zeroprime.Domain`, `Zeroprime.Application`, `Zeroprime.Infrastructure`, `Zeroprime.Web`
+- Repository + application service pattern, DTOs (no entity exposure to views), EF Core Fluent API configurations
+- EF Core migration `InitialCreate` with idempotent seed of verified company data (company profile, CanBank product, site settings, social links)
+- `IDesignTimeDbContextFactory` for safe `dotnet ef` tooling
+
+#### Testing & Quality
+- 29 unit tests (domain rules, validator, application services with stub repositories)
+- 4 architecture tests (NetArchTest) enforcing Clean Architecture boundaries
+- 15 integration tests (WebApplicationFactory + Testcontainers PostgreSQL): public pages, security headers, sitemap/robots, health check, contact form (valid/invalid/missing anti-forgery token), 404 handling
+- GitHub Actions: `ci.yml` (restore, build, test, `dotnet format --verify-no-changes`), `docker.yml` (GHCR image build/push on main)
+- `libman.json` pinning frontend library versions
+
+#### Documentation
+- Rewrote README, CONTRIBUTING, CHANGELOG
+- Added `docs/architecture/SYSTEM_ARCHITECTURE.md`, `docs/development/*` guides, `docs/deployment/DEPLOYMENT_GUIDE.md`
+- New `docker-compose.yml` (postgres + web) and production `Dockerfile`
+
+### Changed
+- Application purpose: personal finance API demo → ZeroPrime Technologies public website (company identity based on public sources only; see `docs/research/ZEROPRIME_COMPANY_RESEARCH.md`)
+- Target database schema redesigned (`CompanyProfiles`, `Products`, `ContactInquiries`, `SocialMediaLinks`, `SiteSettings`)
+
+### Removed
+- FinanceControl API implementation (Controllers, Domain, Application, Data/Migrations) and its React-less static site shell — full removal documented in the migration plan; no useful finance functionality was retained because it is unrelated to the company website
+- Kafka and Redis integrations (not required by the public website; documented in `docs/architecture/REPOSITORY_AUDIT.md`)
+- Swagger/OpenAPI (no public API surface)
+- Finance-specific docs and old brand assets
+- Leaked external connection string that was staged in `appsettings.json` (never committed; replaced with documented local-development defaults + environment-variable configuration)
+- Placeholder GitHub funding configuration
+
+### Migration notes
+- Database: fresh schema. Previous `Expenses`/`Incomes` tables and FinanceControl data are not migrated (demo data, no business value). See `docs/deployment/DEPLOYMENT_GUIDE.md` for greenfield rollout steps.
+- Configuration: `ConnectionStrings:Postgres` moved to environment variables; local dev defaults live in `docker-compose.yml` only.
+- Branch: work proceeds on `feature/zeroprime-mvc-transformation`; never merged to `main` directly.
+
 ## [2.1.0] - 2026-04-21
 
 ### Added
@@ -159,7 +264,7 @@ All notable changes to this project will be documented in this file.
   - `GetAsync_WithInvalidKey_ReturnsNull` - Verify cache miss handling
   - `SetAsync_WithValue_StoresInCache` - Verify cache storage
   - `SetAsync_WithExpiration_SetsExpiry` - Verify TTL functionality
-  - `RemoveAsync_WithValidKey_DeletesFromCache` - Verify cache deletion
+  - `RemoveAsync_WithValidKey_DeletesFromCache` - Verify cache removal
   - `ExistsAsync_WithValidKey_ReturnsTrue` - Verify key existence check
   - `ExistsAsync_WithInvalidKey_ReturnsFalse` - Verify non-existent key check
   - `MultipleOperations_WorkCorrectly` - Verify concurrent operations
@@ -221,7 +326,7 @@ None - This is a backward-compatible release with new features.
 
 2. **Update Configuration**
    - Add Redis connection string to appsettings
-   - Add Elasticsearch URI to appsettings
+   - Add Elasticsearch URI configuration
    - Update PostgreSQL password if needed
 
 3. **Update Docker Compose**
@@ -239,20 +344,6 @@ None - This is a backward-compatible release with new features.
 ### Known Issues
 
 None at this time.
-
-### Future Roadmap
-
-- [ ] Add distributed tracing with OpenTelemetry
-- [ ] Implement circuit breaker pattern for external services
-- [ ] Add metrics collection with Prometheus
-- [ ] Implement API rate limiting
-- [ ] Add authentication and authorization
-- [ ] Implement event sourcing for audit trail
-- [ ] Add GraphQL API support
-
-### Contributors
-
-- Mostafa SAID
 
 ---
 

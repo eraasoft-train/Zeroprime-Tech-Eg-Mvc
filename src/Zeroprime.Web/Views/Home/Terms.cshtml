@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Terms & Conditions";
+    ViewData["Description"] = "Terms and conditions governing use of the ZeroPrime Technologies website, including acceptable use, intellectual property and limitation of liability.";
+    var crumbs = new[]
+    {
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Home", "/"),
+        new Zeroprime.Web.ViewModels.BreadcrumbItem("Terms & Conditions")
+    };
+}
+
+<partial name="_Breadcrumb" model="crumbs" />
+
+<section class="zp-section zp-section--tight">
+    <div class="zp-container zp-prose">
+        <span class="zp-eyebrow">Legal</span>
+        <h1 class="zp-section-title">Terms &amp; Conditions</h1>
+        <p class="text-muted-zp">Last updated: January 2026</p>
+
+        <h2>Acceptance of terms</h2>
+        <p>By accessing and using this website, you agree to these Terms and Conditions. If you do not agree, please discontinue use of the site.</p>
+
+        <h2>About this website</h2>
+        <p>This website presents public information about ZeroPrime Technologies and its products. Content is provided for general informational purposes and is compiled from publicly available sources. While we strive to keep information accurate and current, we make no warranties about completeness or accuracy and reserve the right to change content at any time without notice.</p>
+
+        <h2>Acceptable use</h2>
+        <ul>
+            <li>Do not misuse the contact form to send unsolicited, unlawful or harmful content.</li>
+            <li>Do not attempt to disrupt, overload or gain unauthorized access to this website or its infrastructure.</li>
+            <li>Do not misrepresent your identity when communicating with us.</li>
+        </ul>
+
+        <h2>Intellectual property</h2>
+        <p>The names "ZeroPrime Technologies" and "CanBank", together with the logos and visual identity on this site, belong to ZeroPrime Technologies. The underlying website design and code may not be copied or reused without permission.</p>
+
+        <h2>Third-party links</h2>
+        <p>This site links to third-party profiles (for example LinkedIn, Instagram and Facebook). We are not responsible for the content, accuracy or availability of external sites.</p>
+
+        <h2>No professional or commercial advice</h2>
+        <p>Nothing on this site constitutes investment, legal, environmental compliance, or engineering advice. Commercial deployment of CanBank or related systems is governed exclusively by written agreements between ZeroPrime Technologies and its partners.</p>
+
+        <h2>Limitation of liability</h2>
+        <p>To the fullest extent permitted by law, ZeroPrime Technologies shall not be liable for any indirect, incidental or consequential damages arising from use of, or inability to use, this website or its content.</p>
+
+        <h2>Governing law</h2>
+        <p>These terms are governed by the laws of the Arab Republic of Egypt, and disputes are subject to the exclusive jurisdiction of its courts.</p>
+
+        <h2>Contact</h2>
+        <p>Questions about these terms: <a href="mailto:zeroprime.tech@gmail.com">zeroprime.tech@gmail.com</a>.</p>
+    </div>
+</section>
