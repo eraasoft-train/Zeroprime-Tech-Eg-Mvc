@@ -444,7 +444,7 @@ mv src/FinanceControl.Api/Migrations/* migrations_backup/
 
 **Create new migrations:**
 ```bash
-dotnet ef migrations add InitialCreate --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
+dotnet tool run dotnet-ef migrations add InitialCreate --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
 ```
 
 ### 4.4 Seeding Data

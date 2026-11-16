@@ -86,5 +86,5 @@ Zeroprime-Tech-Eg-Mvc/
 
 ## Adding content to the site
 
-- Text edits to company content: update the seed data in the corresponding `*Configuration.cs` (EF `HasData`) and add a migration with `dotnet ef migrations add UpdateSeedContent --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web`.
+- Text edits to company content: update the seed data in the corresponding `*Configuration.cs` (EF `HasData`) and add a migration with `dotnet tool run dotnet-ef migrations add UpdateSeedContent --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web`.
 - Re-verify against `docs/research/ZEROPRIME_COMPANY_RESEARCH.md` before changing facts. Do not add unverified claims.

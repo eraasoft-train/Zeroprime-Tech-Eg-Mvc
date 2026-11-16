@@ -88,6 +88,6 @@ The app applies EF Core migrations + seed data automatically on first start (`Da
 |---|---|---|
 | HTTP 500.30 on start | App crashed at boot, usually config/DB | Check **Application & Access logs** in Control Panel; confirm `ConnectionStrings__Postgres` is set and uses the **Local access** string |
 | `Password authentication failed` (28P01) | Wrong string (remote vs local), or password typo | Local string goes in the site environment; remote string only from your machine |
-| Site works, but contact form fails | Migrations not applied | Ensure `Database__MigrateOnStartup=true` and restart; or apply migrations from a local machine with `dotnet ef database update` against the Remote access string (enable remote access temporarily, then disable it) |
+| Site works, but contact form fails | Migrations not applied | Ensure `Database__MigrateOnStartup=true` and restart; or apply migrations from a local machine with `dotnet tool run dotnet-ef database update` against the Remote access string (enable remote access temporarily, then disable it) |
 | SSL certificate errors | Let's Encrypt not yet enabled | One-click enable in Domains & HTTPS |
 | 429 on contact form | Rate limit works (5 / 10 min / IP) | Expected; do not disable |

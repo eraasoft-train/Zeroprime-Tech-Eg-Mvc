@@ -37,8 +37,24 @@
         <h2>Your rights</h2>
         <p>You may request a copy, correction or deletion of the personal information we hold about you by emailing <a href="mailto:zeroprime.tech@gmail.com">zeroprime.tech@gmail.com</a>. We will respond within a reasonable timeframe.</p>
 
-        <h2>Cookies</h2>
-        <p>This website does not use advertising or analytics cookies. We may use strictly necessary technical cookies (for example to support anti-forgery protection on forms) required for the site to function securely.</p>
+        <h2>Cookies and local storage</h2>
+        <p>This website does not use advertising, analytics or tracking cookies, and does not profile visitors. It sets a small number of strictly necessary cookies and uses your browser's local storage:</p>
+        <div class="table-responsive">
+        <table class="table table-sm zp-cookie-table" style="font-size: 0.88rem;">
+            <thead>
+                <tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Purpose</th><th scope="col">Duration</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>.AspNetCore.Antiforgery.*</code></td><td>Cookie (HttpOnly, SameSite=Lax)</td><td>Anti-forgery validation for the contact form</td><td>Session</td></tr>
+                <tr><td><code>zp_consent</code></td><td>Cookie (SameSite=Lax)</td><td>Remembers your consent choice, mirrors local storage</td><td>1 year</td></tr>
+                <tr><td><code>zp.session</code></td><td>Cookie (HttpOnly, SameSite=Lax)</td><td>Server-side session state for future interactive features</td><td>20 minutes</td></tr>
+                <tr><td><code>zp-consent</code></td><td>localStorage</td><td>Your consent choice (<code>accepted</code> / <code>essentials</code>)</td><td>Until cleared</td></tr>
+                <tr><td><code>zp-consent-dismissed</code></td><td>sessionStorage</td><td>Remembers you dismissed the notice (this session only)</td><td>Tab session</td></tr>
+                <tr><td><code>zp-theme</code></td><td>localStorage</td><td>Your light/dark theme preference</td><td>Until cleared</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <p>The cookie-consent banner appears on first visit, about 3 seconds after the page loads, and stays hidden after you make a choice or dismiss it for the session. You can reset your choice at any time by clearing these values in your browser (site data / cookies), after which the banner will appear again on your next visit.</p>
 
         <h2>Changes to this policy</h2>
         <p>We may update this policy as the website evolves. Material changes will be reflected on this page with an updated revision date.</p>

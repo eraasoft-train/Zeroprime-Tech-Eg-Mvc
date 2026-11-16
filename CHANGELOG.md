@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.1] - 2026-11-16
+
+### Added
+
+- **Scroll to top button** — floating amber circular button, bottom-right, appears after 320px of scroll with a smooth fade/rise animation, smooth-scrolls to the top (instant on `prefers-reduced-motion`), shifts upward while the cookie banner is visible. ~50 lines of dependency-free JS/CSS.
+
+### Changed
+
+- Footer bottom bar: "Built with EraaSoft" external link to https://eraasoft.com added to the copyright line (amber, subtle underline).
+- Footer bottom bar now shows **accepted payment method** glyphs instead of the "Company information…" note: Visa, Mastercard, American Express and Meeza as inline SVG cards (no visible text; `aria-label`s retained for screen readers).
+
+### Fixed
+
+- **Duplicate logo and brand name in the header** — `.zp-brand img { display: block }` (specificity 0-1-1) out-specified the theme switch hiding rule `.zp-logo--light` / `.zp-logo--dark` (0-1-0). Removed the redundant `display: block` (brand link is inline-flex, so images are blockified automatically); exactly one logo renders per theme.
+
+## [3.2.0] - 2026-11-16
+
+### Added
+
+- **Cookie consent banner** — modern, app-style bottom banner that fades in with a smooth animation ~3 seconds after page load (never before first paint). Choice persisted to `localStorage` (`zp-consent`) and a first-party cookie (`zp_consent`, 1 year, `SameSite=Lax`); "Essentials only" and close/Escape dismiss without storing consent; banner stays hidden after choice. `aria` wiring, Escape-to-dismiss, `prefers-reduced-motion` support, safe-area insets for iOS. Small `window.ZeroPrimeConsent` API for future non-essential features.
+- **Session** support with hardened defaults — `zp.session` cookie: HttpOnly, SameSite=Lax, 20-minute sliding expiry, `IsEssential`; wired into the pipeline via `app.UseSession()`.
+- **Privacy Policy** now documents the real, complete cookie/storage inventory (antiforgery, `zp_consent`, `zp.session`, `zp-consent`, `zp-consent-dismissed`, `zp-theme`) with durations and purposes, in a responsive theme-aware table.
+- Integration tests asserting the banner markup renders on public pages and the privacy policy documents the real cookies (20 integration tests total).
+
 ## [3.1.1] - 2026-11-16
 
 ### Fixed

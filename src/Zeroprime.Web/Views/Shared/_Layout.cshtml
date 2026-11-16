@@ -27,7 +27,8 @@
 
     <meta name="theme-color" content="#0e2f24" />
     <link rel="icon" type="image/svg+xml" href="~/favicon.svg" asp-append-version="true" />
-    <link rel="alternate icon" href="~/favicon.ico" />
+    <link rel="alternate icon" href="~/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="~/apple-touch-icon.png" sizes="180x180" />
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -110,15 +111,44 @@
             </div>
         </div>
         <div class="zp-footer-bottom">
-            <span>&copy; @DateTime.UtcNow.Year ZeroPrime Technologies. All rights reserved.</span>
-            <span>Company information compiled from public sources; reviewed January 2026.</span>
+            <span class="zp-footer-legal">&copy; @DateTime.UtcNow.Year ZeroPrime Technologies. All rights reserved. <span class="zp-footer-sep" aria-hidden="true">&middot;</span> <a class="zp-footer-build" href="https://eraasoft.com" target="_blank" rel="noopener noreferrer">EraaSoft</a></span>
+            <span class="zp-pay-cards" role="group" aria-label="Accepted payment methods">
+                <svg viewBox="0 0 34 22" class="zp-card-glyph" role="img" aria-label="Visa"><rect x="0.5" y="0.5" width="33" height="21" rx="3" fill="#1a1f71" stroke="rgba(255,255,255,0.25)"/><text x="17" y="14" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="8" font-style="italic" font-weight="800" letter-spacing="1.2" fill="#ffffff">VISA</text></svg>
+                <svg viewBox="0 0 34 22" class="zp-card-glyph" role="img" aria-label="Mastercard"><rect x="0.5" y="0.5" width="33" height="21" rx="3" fill="#171717" stroke="rgba(255,255,255,0.25)"/><circle cx="13.5" cy="11" r="6" fill="#eb001b"/><circle cx="20.5" cy="11" r="6" fill="#f79e1b" fill-opacity="0.85"/></svg>
+                <svg viewBox="0 0 34 22" class="zp-card-glyph" role="img" aria-label="American Express"><rect x="0.5" y="0.5" width="33" height="21" rx="3" fill="#2e77bc" stroke="rgba(255,255,255,0.25)"/><text x="17" y="13.2" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="6.2" font-weight="800" letter-spacing="0.8" fill="#ffffff">AMEX</text></svg>
+                <svg viewBox="0 0 34 22" class="zp-card-glyph" role="img" aria-label="Meeza"><rect x="0.5" y="0.5" width="33" height="21" rx="3" fill="#0f9d8f" stroke="rgba(255,255,255,0.25)"/><text x="17" y="13.6" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="7" font-weight="800" letter-spacing="0.6" fill="#ffffff">meeza</text></svg>
+            </span>
         </div>
     </div>
 </footer>
 
+<!-- Scroll to top -->
+<button type="button" class="zp-scroll-top" id="zpScrollTop" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M6 11l6-6 6 6"/></svg>
+</button>
+
+<!-- Cookie consent banner (real app behavior: delayed fade-in, persisted choice) -->
+<div class="zp-consent" id="zpCookieConsent" role="dialog" aria-modal="false" aria-labelledby="zpConsentTitle" aria-describedby="zpConsentText" aria-hidden="true">
+    <div class="zp-consent-card">
+        <div class="zp-consent-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M21.3 11.1A8.6 8.6 0 1 0 12.9 2.7a5.4 5.4 0 0 0 6.3 6.8 4.7 4.7 0 0 0 2.1 1.6z"/><circle cx="9.5" cy="9.7" r="0.9"/><circle cx="13.6" cy="14.1" r="0.9"/><circle cx="9" cy="14.6" r="0.6"/></svg>
+        </div>
+        <div class="zp-consent-body">
+            <p class="zp-consent-title" id="zpConsentTitle">We respect your privacy</p>
+            <p class="zp-consent-text" id="zpConsentText">We use a small set of strictly necessary cookies and local storage — theme preference and your cookie choice. No tracking, no advertising, no analytics. <a asp-controller="Home" asp-action="Privacy">Read our Privacy Policy</a>.</p>
+            <div class="zp-consent-actions">
+                <button type="button" class="zp-btn zp-btn--amber zp-btn--sm" id="zpConsentAccept">Accept</button>
+                <button type="button" class="zp-btn zp-btn--outline-dark zp-btn--sm" id="zpConsentEssentials">Essentials only</button>
+            </div>
+        </div>
+        <button type="button" class="zp-consent-close" id="zpConsentClose" aria-label="Dismiss cookie notice">&times;</button>
+    </div>
+</div>
+
 <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/cookie-consent.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -20,7 +20,7 @@ git clone https://github.com/eraasoft-train/Zeroprime-Tech-Eg-Mvc.git
 cd Zeroprime-Tech-Eg-Mvc
 docker compose up -d postgres
 dotnet restore
-dotnet ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
+dotnet tool restore && dotnet tool run dotnet-ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
 dotnet run --project src/Zeroprime.Web
 ```
 

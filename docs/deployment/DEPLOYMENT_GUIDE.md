@@ -63,7 +63,7 @@ Any .NET-capable PaaS works (Azure App Service, Render, Railway, Fly.io, a VM wi
 ## Database
 
 - Migrations live in `src/Zeroprime.Infrastructure/Persistence/Migrations` and are idempotent.
-- First deployment: `docker exec` into the web container or run `dotnet ef database update` from CI with `ConnectionStrings__Postgres` set — or rely on startup migration (default).
+- First deployment: `docker exec` into the web container or run `dotnet tool run dotnet-ef database update` from CI with `ConnectionStrings__Postgres` set — or rely on startup migration (default).
 - Seed data (company profile, CanBank, site settings, social links) ships via EF `HasData` in migration `InitialCreate`.
 - **No data migration** is performed from the retired FinanceControl app (demo data; see migration plan).
 - Backups: standard PostgreSQL tooling (`pg_dump`). The `ContactInquiries` table is the only write-generated data.

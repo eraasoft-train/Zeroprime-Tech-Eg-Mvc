@@ -2,6 +2,12 @@
 
 Every dependency below is pinned and intentional. Frontend assets are vendored locally (see `src/Zeroprime.Web/libman.json`); the site has **no runtime CDN dependencies**.
 
+## Build-time tools
+
+| Tool | Where | Why |
+|---|---|---|
+| `dotnet-ef` 9.0.12 | Repo-local tool manifest (`.config/dotnet-tools.json`) | EF Core migrations from any machine: `dotnet tool restore` then `dotnet tool run dotnet-ef …`. Pinned to the .NET 9 line; works even when the global `dotnet-ef` install is broken or unavailable. **Not** needed on the server — migrations apply at startup. |
+
 ## Runtime — Zeroprime.Web
 
 | Package | Version | Why it exists |

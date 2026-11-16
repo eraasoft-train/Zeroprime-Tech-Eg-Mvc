@@ -30,6 +30,21 @@
         });
     }
 
+    // Scroll to top button
+    var scrollTop = document.getElementById('zpScrollTop');
+    if (scrollTop) {
+        var toggleScrollTop = function () {
+            scrollTop.classList.toggle('is-visible', window.scrollY > 320);
+        };
+        toggleScrollTop();
+        window.addEventListener('scroll', toggleScrollTop, { passive: true });
+
+        scrollTop.addEventListener('click', function () {
+            var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, left: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+        });
+    }
+
     // Dark / light theme toggle (initial theme is applied by theme.js before paint)
     var themeToggle = document.getElementById('zpThemeToggle');
     if (themeToggle) {

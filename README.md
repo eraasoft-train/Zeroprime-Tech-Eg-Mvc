@@ -45,7 +45,7 @@ docker compose up -d postgres
 
 # 2. Apply migrations (seeds the verified company profile, CanBank product,
 #    site settings and social links)
-dotnet ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
+dotnet tool restore && dotnet tool run dotnet-ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
 
 # 3. Run
 dotnet run --project src/Zeroprime.Web

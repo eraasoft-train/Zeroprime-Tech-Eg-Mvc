@@ -7,7 +7,7 @@
 | .NET SDK | 9.0.x | Build & run |
 | PostgreSQL | 16 (docker-compose) | Development database |
 | Docker | any recent | Local database + integration tests (Testcontainers) |
-| EF Core CLI | 9.x+ | `dotnet ef` migrations (`dotnet tool install --global dotnet-ef`) |
+| EF Core CLI | via repo-local tool manifest | `dotnet tool restore` then `dotnet tool run dotnet-ef` — pinned `dotnet-ef` 9.0.12, no global install required |
 
 ## First-time setup
 
@@ -17,7 +17,8 @@ cd Zeroprime-Tech-Eg-Mvc
 
 docker compose up -d postgres           # publishes 5432; user/db=zeroprime
 dotnet restore
-dotnet ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
+dotnet tool restore                     # local dotnet-ef (pinned in .config/dotnet-tools.json)
+dotnet tool run dotnet-ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
 dotnet run --project src/Zeroprime.Web
 ```
 
@@ -47,8 +48,9 @@ dotnet user-secrets set "ConnectionStrings:Postgres" "Host=...;Password=..." --p
 
 ### Add an EF Core migration
 ```bash
-dotnet ef migrations add <Name> --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web --output-dir Persistence/Migrations
-dotnet ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
+dotnet tool restore   # once per machine (no global install needed)
+dotnet tool run dotnet-ef migrations add <Name> --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web --output-dir Persistence/Migrations
+dotnet tool run dotnet-ef database update --project src/Zeroprime.Infrastructure --startup-project src/Zeroprime.Web
 ```
 The design-time factory (`Infrastructure/Persistence/Context/ZeroprimeDbContextFactory.cs`) lets EF tooling work without starting the web app. Set `ConnectionStrings__Postgres` when you need `database update` against a non-default server.
 

@@ -33,7 +33,14 @@ public sealed class SecurityHeadersMiddleware
             headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
             headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()";
             headers["Content-Security-Policy"] = ContentSecurityPolicy;
-            headers["Cross-Origin-Opener-Policy"] = "same-origin";
+
+            // COOP is only honored by browsers over HTTPS/potentially-trustworthy origins;
+            // sending it over plain HTTP just produces console noise. Enable HTTPS (Let's Encrypt
+            // on MonsterASP is one click) and this header starts working again automatically.
+            if (context.Request.IsHttps)
+            {
+                headers["Cross-Origin-Opener-Policy"] = "same-origin";
+            }
         }
 
         await _next(context);

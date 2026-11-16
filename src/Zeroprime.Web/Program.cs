@@ -22,6 +22,19 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 builder.Services.AddControllersWithViews();
 builder.Services.AddMemoryCache();
 
+// Hardened session cookie: HttpOnly, SameSite=Lax, 20-minute sliding.
+// Configured and ready (no tracking; anonymous users stay anonymous).
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.Name = "zp.session";
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SameSite = SameSiteMode.Lax;
+    options.Cookie.IsEssential = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+    options.Cookie.MaxAge = TimeSpan.FromMinutes(20);
+});
+
 // -------------------------------------------------------- Infrastructure
 // EF Core (PostgreSQL) + repositories. Throws at startup if the connection
 // string is missing - fail fast on misconfiguration.
@@ -109,6 +122,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
+app.UseSession();
 app.UseRateLimiter();
 app.UseAuthorization();
 
